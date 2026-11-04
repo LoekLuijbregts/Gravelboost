@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ENV } from '../lib/site';
+---
+<Layout title="Request a route" description="Want a route ridden in your region, or a route you wish existed? Tell us. We choose what fits and ride it first." path="/request-a-route/" crumbs={[{ name: 'Request a route', href: '/request-a-route/' }]}>
+  <section class="section">
+    <div class="narrow">
+      <h1>Request a route</h1>
+      <p>Tell us where you would like us to ride, or which route you wish existed. We read everything. We choose what fits, and we ride it before we write about it.</p>
+      <form class="stack" data-form="request" data-portal={ENV.hubspotPortal} data-form-id={ENV.requestForm} data-msg-ok="Thanks. We got your request." data-msg-error="Something went wrong. Please try again." data-msg-sending="Sending..." data-msg-not-connected="[PLACEHOLDER] This form is not connected to HubSpot yet.">
+        <div><label for="r-name">Your name</label><input id="r-name" name="firstname" autocomplete="given-name" /></div>
+        <div><label for="r-email">Email</label><input id="r-email" name="email" type="email" required autocomplete="email" /></div>
+        <div><label for="r-org">Region or organisation (optional)</label><input id="r-org" name="company" autocomplete="organization" /></div>
+        <div><label for="r-msg">Which route or region?</label><textarea id="r-msg" name="message" rows="5" required></textarea></div>
+        <div><button class="btn" type="submit">Send request</button></div>
+        <p class="status" role="status"></p>
+      </form>
+      <p class="muted" style="font-size:.9rem;margin-top:1.5rem">A region can fund a trip after we choose it. It never buys a place on the site. <a href="/how-we-work/">How we work</a>.</p>
+    </div>
+  </section>
+</Layout>

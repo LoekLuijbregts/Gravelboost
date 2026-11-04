@@ -1,0 +1,10 @@
+node_modules
+dist
+.astro
+.netlify
+gpx-source/
+.env
+.env.*
+.DS_Store
+_old/
+.cache/

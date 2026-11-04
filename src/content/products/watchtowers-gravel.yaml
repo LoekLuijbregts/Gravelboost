@@ -1,0 +1,9 @@
+name: Watchtowers Gravel Pack
+kind: pack
+summary: The three gravel routes of All Along The Watchtowers.
+contents:
+  - Gravel long, gravel north loop and gravel south loop, as GPX
+  - An offline guide [CHECK contents]
+price: 9
+examplePrice: true
+shopifyUrl: ''

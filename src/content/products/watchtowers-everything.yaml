@@ -1,0 +1,17 @@
+name: Watchtowers Everything
+kind: bundle
+summary: All five routes, gravel and road, in one bundle.
+contents:
+  - The Watchtowers Gravel Pack
+  - The Watchtowers Road Pack
+  - Partner benefits along the way
+price: 14.95
+examplePrice: true
+shopifyUrl: ''
+partnerPerks:
+  - partner: '[Bike rental partner]'
+    perk: 10% off
+  - partner: '[Cafe on the route]'
+    perk: A free coffee
+  - partner: '[Bike-friendly stay]'
+    perk: A discount

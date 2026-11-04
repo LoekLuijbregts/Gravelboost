@@ -1,0 +1,9 @@
+name: Watchtowers Road Pack
+kind: pack
+summary: The two road routes of All Along The Watchtowers.
+contents:
+  - Road long and road short, as GPX
+  - An offline guide [CHECK contents]
+price: 9
+examplePrice: true
+shopifyUrl: ''

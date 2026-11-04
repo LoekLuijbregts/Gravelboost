@@ -1,0 +1,11 @@
+name: Luxembourg Guide
+kind: pack
+summary: The full Luxembourg destination guide with all three trips.
+contents:
+  - Three trips with GPX [PLACEHOLDER]
+  - Where to base yourself and how to get around
+  - Places to eat and sleep [PLACEHOLDER]
+  - Off the bike
+price: 14
+examplePrice: true
+shopifyUrl: ''

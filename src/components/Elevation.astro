@@ -1,0 +1,33 @@
+---
+import { getGpx } from '../lib/gpx';
+
+interface Props { gpx?: string; name: string; color?: string }
+const { gpx, name, color = '#2F5D3F' } = Astro.props;
+const g = getGpx(gpx);
+const W = 640;
+const H = 110;
+const PAD = 6;
+let area = '';
+let line = '';
+let lo = 0;
+let hi = 0;
+if (g) {
+  const eles = g.profile.map((p) => p[1]);
+  lo = Math.min(...eles);
+  hi = Math.max(...eles);
+  const span = Math.max(hi - lo, 10);
+  const maxKm = g.profile.at(-1)![0] || 1;
+  const pts = g.profile.map(([km, e]) => [PAD + (km / maxKm) * (W - 2 * PAD), H - PAD - ((e - lo) / span) * (H - 2 * PAD)]);
+  line = pts.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(1)} ${y.toFixed(1)}`).join('');
+  area = `${line}L${pts.at(-1)![0].toFixed(1)} ${H - PAD}L${pts[0][0].toFixed(1)} ${H - PAD}Z`;
+}
+---
+{g && (
+  <div class="profile">
+    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Elevation profile of ${name}, from ${lo} to ${hi} metres over ${g.distanceKm} kilometres`}>
+      <path d={area} fill={color} fill-opacity=".18" />
+      <path d={line} fill="none" stroke={color} stroke-width="2" stroke-linejoin="round" />
+    </svg>
+    <p class="cap">Elevation profile, {lo} to {hi} m over {g.distanceKm} km. The area is flat.</p>
+  </div>
+)}

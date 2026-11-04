@@ -1,0 +1,23 @@
+---
+import { ANSWER_QUESTIONS, formatDate } from '../lib/site';
+
+interface Props { answers: Record<string, { answer: string; checked: Date | null }> }
+const { answers } = Astro.props;
+---
+<section class="section" id="honest-answers" aria-labelledby="honest-h">
+  <div class="wrap">
+    <h2 id="honest-h">Honest answers</h2>
+    <p class="muted" style="max-width:40rem">The questions riders ask before they go. Each answer shows when we last checked it.</p>
+    <dl class="answers">
+      {Object.entries(ANSWER_QUESTIONS).map(([key, q]) => (
+        <div>
+          <dt>{q}</dt>
+          <dd>
+            {answers[key].answer}
+            <span class="checked">{answers[key].checked ? `Last checked ${formatDate(answers[key].checked)}` : 'Last checked: [CHECK] not checked yet'}</span>
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>

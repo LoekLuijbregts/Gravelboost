@@ -1,0 +1,9 @@
+name: All Guides
+kind: bundle
+summary: Every GravelBoost destination guide in one bundle.
+contents:
+  - The Luxembourg Guide
+  - Every other destination guide as it is published [CHECK terms]
+price: 34
+examplePrice: true
+shopifyUrl: ''

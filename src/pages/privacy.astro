@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Privacy and cookies" description="What GravelBoost does with your data: forms, analytics only with your consent, maps, and how to change your cookie choice." path="/privacy/" crumbs={[{ name: 'Privacy and cookies', href: '/privacy/' }]}>
+  <section class="section">
+    <div class="narrow prose">
+      <h1>Privacy and cookies</h1>
+      <p class="muted">[CHECK] Legal text to be confirmed by Cycling Incubators before launch.</p>
+      <h2>Who is responsible</h2>
+      <p>Cycling Incubators, contact: loek@cyclingincubators.com. [CHECK company details and address]</p>
+      <h2>Analytics</h2>
+      <p>We use Google Analytics 4 to see which pages help riders. It is off until you press Accept in the cookie banner. If you decline, nothing is measured. You can change your choice at any time with Cookie settings in the footer.</p>
+      <h2>Forms</h2>
+      <p>If you subscribe to the newsletter or send a route request, your answers go to HubSpot, our CRM. We use them to reply to you and to send what you asked for. You can ask us to delete them.</p>
+      <h2>Maps</h2>
+      <p>Maps load from OpenFreeMap when you scroll to them. The map server sees your IP address, as any website does.</p>
+      <h2>Komoot</h2>
+      <p>A Komoot map only loads after you press the button. Before that, nothing is sent to Komoot.</p>
+      <h2>Shop</h2>
+      <p>Paid guides are sold through Shopify, which has its own privacy terms.</p>
+      <h2>Hosting</h2>
+      <p>The site runs on Netlify. Netlify keeps basic server logs.</p>
+      <h2>Translations</h2>
+      <p>Pages in Dutch, German, French and Spanish are translated automatically when the site is built. No visitor data is used for this.</p>
+      <h2>Cookies and storage</h2>
+      <ul>
+        <li><strong>gb-consent</strong>: remembers your cookie choice, in your browser. Needed.</li>
+        <li><strong>_ga, _ga_*</strong>: Google Analytics. Only with consent.</li>
+        <li><strong>hubspotutk</strong>: HubSpot, links a form to a visit. Only used with consent.</li>
+      </ul>
+      <h2>Your rights</h2>
+      <p>You can ask to see, correct or delete your data. Write to loek@cyclingincubators.com.</p>
+    </div>
+  </section>
+</Layout>
