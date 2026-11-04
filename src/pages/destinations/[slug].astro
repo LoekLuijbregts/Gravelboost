@@ -10,6 +10,7 @@ import ProductCard from '../../components/ProductCard.astro';
 import Provenance from '../../components/Provenance.astro';
 import RouteMap from '../../components/RouteMap.astro';
 import { destinationLd, productLd } from '../../lib/schema';
+import { hideOpen, SHOW_TODOS } from '../../lib/site';
 
 export async function getStaticPaths() {
   const all = await getCollection('destinations');
@@ -33,24 +34,24 @@ const preload = await heroPreload(d.photoSet, d.photos[0].file);
   <Hero set={d.photoSet} photo={d.photos[0]}>
     <p class="eyebrow" style="color:#fff;opacity:.9">Destination guide</p>
     <h1>{d.name}</h1>
-    <p class="lede">{d.intro}</p>
-    <div class="btn-row">
+        <div class="btn-row">
       <a class="btn" href="#trips">See the trips</a>
-      <a class="btn btn--ghost" style="color:#fff;border-color:#fff" href="#packs">Get the guide</a>
+      <a class="btn btn--ghost" style="color:#fff;border-color:#fff" href="#packs">About the guide</a>
     </div>
   </Hero>
 
   <section class="section" aria-labelledby="intro-h">
-    <div class="wrap" style="display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+    <div class="wrap story">
       <div class="prose">
         <h2 id="intro-h">Riding {d.name}</h2>
+        <p class="intro">{d.intro}</p>
         <Content />
       </div>
-      <dl class="facts" style="align-content:start">
+      <aside class="fact-card"><dl class="facts">
         <div><dt>Best months</dt><dd><Months months={d.bestMonths} />{d.bestMonthsNote && <span class="muted" style="font-size:.9rem">{d.bestMonthsNote}</span>}</dd></div>
         <div><dt>Getting there and around</dt><dd>{d.arrival}</dd></div>
         <div><dt>Ridden</dt><dd>{d.visited}</dd></div>
-      </dl>
+      </dl></aside>
     </div>
   </section>
 
@@ -58,8 +59,8 @@ const preload = await heroPreload(d.photoSet, d.photos[0].file);
     <div class="wrap">
       <h2 id="places-h">Where to base yourself</h2>
       <RouteMap points={points} />
-      <ul class="otb" style="margin-top:1.2rem">
-        {places.map((p) => <li><h3>{p.data.name}</h3><p>{p.data.why}</p></li>)}
+      <ul class="otb otb--grid" style="margin-top:1.2rem">
+        {places.map((p) => <li><h3>{p.data.name}</h3><p style="margin:0">{p.data.why}</p></li>)}
       </ul>
     </div>
   </section>
@@ -74,16 +75,18 @@ const preload = await heroPreload(d.photoSet, d.photos[0].file);
               <p style="margin:0">{t.access === 'preview' ? <span class="tag tag--free">Free preview</span> : <span class="tag tag--example">In the guide</span>}</p>
               <h3>{t.title}</h3>
               <p class="muted" style="font-size:.95rem">{t.area}</p>
-              <ul class="stats">
-                <li><span class="k">Distance</span><span class="v">{t.distanceKm}</span></li>
-                <li><span class="k">Climbing</span><span class="v">{t.ascentM}</span></li>
-                <li><span class="k">Time</span><span class="v">{t.days}</span></li>
-                <li><span class="k">Level</span><span class="v">{t.level}</span></li>
-              </ul>
+              {!hideOpen(t.distanceKm) && (
+                <ul class="stats">
+                  <li><span class="k">Distance</span><span class="v">{t.distanceKm}</span></li>
+                  <li><span class="k">Climbing</span><span class="v">{t.ascentM}</span></li>
+                  <li><span class="k">Time</span><span class="v">{t.days}</span></li>
+                  <li><span class="k">Level</span><span class="v">{t.level}</span></li>
+                </ul>
+              )}
               <p>{t.summary}</p>
               <div class="btn-row">
                 {t.access === 'preview'
-                  ? <span class="btn btn--ghost" aria-disabled="true">Free GPX [PLACEHOLDER]</span>
+                  ? (SHOW_TODOS && <span class="btn btn--ghost" aria-disabled="true">Free GPX [PLACEHOLDER]</span>)
                   : <a class="btn btn--ghost" href="#packs" data-event="pack_click" data-label={destination.id}>In the guide</a>}
               </div>
             </div>
@@ -96,7 +99,7 @@ const preload = await heroPreload(d.photoSet, d.photos[0].file);
   <OffTheBike items={d.offTheBike} />
   <Gallery set={d.photoSet} photos={d.photos} />
 
-  <section class="section" id="packs" aria-labelledby="packs-h">
+  <section class="section section--white" id="packs" aria-labelledby="packs-h">
     <div class="wrap">
       <h2 id="packs-h">The guide</h2>
       <div class="grid">{products.map((p) => <ProductCard product={p} />)}</div>

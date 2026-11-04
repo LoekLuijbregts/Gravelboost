@@ -4,28 +4,27 @@ Generated from the built site. Run `npm run build && npm run todo` to refresh.
 
 ## /bundles/all-along-the-watchtowers/
 
-- SurfaceGravel [CHECK share of paved]
+- Gravel [CHECK share of paved]
+- An offline guide [CHECK contents]
+- Buy [PLACEHOLDER Shopify link]
 - The names, towers and route lengths follow the public pages of Bezoek Oisterwijk and Bezoek Hilvarenbeek. [CHECK: the Hilvarenbeek page list
 - JFMAMJJASOND [CHECK best months]
 - [PLACEHOLDER] Share of gravel, paved and soft sand per route. Last checked: [CHECK] not checked yet
 - [PLACEHOLDER] How much of each route is free of cars. Last checked: [CHECK] not checked yet
 - [PLACEHOLDER] Gates, closures and seasonal limits. The towers may have opening hours. [CHECK] Last checked: [CHECK] not checked yet
 - [PLACEHOLDER] Where to eat and fill bottles. The village pump photo suggests water on the way. [CHECK] Last checked: [CHECK] not checked yet
-- Every route starts and ends at Tilburg Centraal. [CHECK that all five do] Last checked: [CHECK] not checked yet
+- Take the train to Tilburg Centraal. The road routes pass about 200 m from the station. The gravel routes are about 2 to 5 km away in a strai
 - [PLACEHOLDER] Where you can sleep with your bike. Last checked: [CHECK] not checked yet
 - [PLACEHOLDER] Is it fine on an e-bike, including battery range on the long routes? Last checked: [CHECK] not checked yet
 - [PLACEHOLDER] Which routes work with kids. Last checked: [CHECK] not checked yet
 - Stop on the old bunker. [CHECK place name] by Loek Luijbregts
 - Water refill at the village pump. [CHECK village name] by Loek Luijbregts
-- The tower by the lake. [CHECK tower name] by Loek Luijbregts
 - The slanted tower from above. [CHECK tower name] by Loek Luijbregts
 - Riding past a tower. [CHECK tower name] by Loek Luijbregts
 - A small bridge on the way. [CHECK location] by Loek Luijbregts
 - A rusty aircraft sculpture in the pines. [CHECK place name] by Loek Luijbregts
 - Under the limes in town. [CHECK town] by Loek Luijbregts
 - A tower in the wet meadows. [CHECK tower name] by Loek Luijbregts
-- An offline guide [CHECK contents]
-- Buy [PLACEHOLDER Shopify link]
 - Collection made by Loek Luijbregts, from start to finish. Photos and routes from 2022. [CHECK: was this commissioned, and by whom?]
 
 ## /destinations/
@@ -70,13 +69,20 @@ Nothing open.
 
 ## /
 
-Nothing open.
+- [CHECK this scale]
 
 ## /journeys/tilburg/
 
 - Free GPX [LINK]
-- Singletrack and sandy trails in the woods around the city, starting near the Kempentoren. [CHECK area names]
+- Singletrack and sandy trails in the woods around the city, finishing at the Kempentoren. [CHECK area names]
 - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Last checked: [C
+- I walked the city for a day and a half. The full walking route is in the Ride Pack. [PLACEHOLDER route]
+- Tilburg city centre [CHECK exact place and opening hours]
+- A good way to see how the city eats. [CHECK details]
+- The former railway area next to the station, now a district for culture and food. [CHECK what is there today]
+- [CHECK where]
+- Goirkestraat 96, Tilburg [CHECK address]
+- Korte Heuvel, Tilburg [CHECK address]
 - Stopping in the centre of Tilburg. [CHECK church name] by Loek Luijbregts
 - A lakeside stop. [CHECK location name] by Loek Luijbregts
 - Sand and water on the same track. [CHECK location name] by Loek Luijbregts
@@ -85,18 +91,10 @@ Nothing open.
 - An information point at the edge of the forest. [CHECK name] by Loek Luijbregts
 - A lookout tower by the water. [CHECK tower name] by Loek Luijbregts
 - Dinner after the ride. [CHECK restaurant] by Loek Luijbregts
-- I walked the city for a day and a half. The full walking route is in the Ride Pack. [PLACEHOLDER route]
-- Tilburg city centre [CHECK exact place and opening hours]
-- A good way to see how the city eats. [CHECK details]
-- The former railway area next to the station, now a district for culture and food. [CHECK what is there today]
-- [CHECK where]
-- Goirkestraat 96, Tilburg [CHECK address]
-- Korte Heuvel, Tilburg [CHECK address]
-- Buy [PLACEHOLDER Shopify link]
 
 ## /privacy/
 
-- [CHECK] Legal text to be confirmed by Cycling Incubators before launch.
+- [CHECK legal text with Cycling Incubators]
 - Cycling Incubators, contact: loek@cyclingincubators.com. [CHECK company details and address]
 
 ## /request-a-route/
@@ -105,4 +103,4 @@ Nothing open.
 
 ## /start-here/
 
-- [CHECK this scale before launch]
+- [CHECK this scale]

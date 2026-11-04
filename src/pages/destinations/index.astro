@@ -1,18 +1,23 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
+import { heroPreload } from '../../lib/photos';
 import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
 import Photo from '../../components/Photo.astro';
 
 const destinations = await getCollection('destinations');
-const bundles = [
-  { href: '/bundles/all-along-the-watchtowers/', title: 'All Along The Watchtowers', text: 'Five routes from Tilburg along five lookout towers.' },
-];
+const towers = (await getEntry('journeys', 'all-along-the-watchtowers'))!;
+const lux = destinations.find((d) => d.id === 'luxembourg')!;
+const heroPhoto = lux.data.photos.find((p) => p.file.includes('forest-gravel-curve'))!;
+const preload = await heroPreload(lux.data.photoSet, heroPhoto.file);
 ---
-<Layout title="Destinations" description="Where we ride: Luxembourg, Tilburg and the Watchtowers routes. Accessible adventures across Europe." path="/destinations/" crumbs={[{ name: 'Destinations', href: '/destinations/' }]}>
+<Layout preload={preload} title="Destinations" description="Where we ride: Luxembourg, Tilburg and the Watchtowers routes. Accessible adventures across Europe." path="/destinations/" crumbs={[{ name: 'Destinations', href: '/destinations/' }]}>
+  <Hero compact set={lux.data.photoSet} photo={heroPhoto}>
+    <h1>Destinations</h1>
+    <p class="lede" style="margin:0">Each one is ridden first. Pick a place, then pick a ride.</p>
+  </Hero>
   <section class="section">
     <div class="wrap">
-      <h1>Destinations</h1>
-      <p class="muted" style="max-width:40rem">Each destination is ridden first. Pick a place, then pick a journey.</p>
       <div class="grid">
         {destinations.map((d) => (
           <article class="card">
@@ -25,16 +30,15 @@ const bundles = [
             </div>
           </article>
         ))}
-        {bundles.map((b) => (
-          <article class="card">
-            <div class="card-body">
-              <p class="eyebrow" style="margin:0">Bundle · Netherlands</p>
-              <h3><a href={b.href}>{b.title}</a></h3>
-              <p>{b.text}</p>
-              <div class="btn-row"><a class="btn btn--ghost" href={b.href}>See the bundle</a></div>
-            </div>
-          </article>
-        ))}
+        <article class="card">
+          <Photo set={towers.data.photoSet} photo={towers.data.photos[0]} ratio="card" caption={false} />
+          <div class="card-body">
+            <p class="eyebrow" style="margin:0">Netherlands</p>
+            <h3><a href="/bundles/all-along-the-watchtowers/">All Along The Watchtowers</a></h3>
+            <p>{towers.data.description}</p>
+            <div class="btn-row"><a class="btn btn--ghost" href="/bundles/all-along-the-watchtowers/">See the routes</a></div>
+          </div>
+        </article>
       </div>
     </div>
   </section>

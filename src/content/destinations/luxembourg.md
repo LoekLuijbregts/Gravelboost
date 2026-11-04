@@ -122,4 +122,4 @@ I rode Luxembourg in four areas. In the north I rode the Ardennes around Esch-su
 
 Every area feels different. The north has forest and valleys. The Mullerthal has rock and sandy paths. The south has red earth and old mining land.
 
-This guide is an example of a destination guide. The three trips below have placeholders for distance and climbing until the final guide is finished.
+This guide is an example of a destination guide. Distance and climbing for the three trips follow when the final guide is finished.

@@ -1,10 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import { heroPreload } from '../lib/photos';
+import { getEntry } from 'astro:content';
+const towers = (await getEntry('journeys', 'all-along-the-watchtowers'))!;
+const heroPhoto = towers.data.photos.find((p) => p.file.includes('watchtowers-tower-stop-group'))!;
+const preload = await heroPreload('watchtowers', heroPhoto.file);
 ---
-<Layout title="How we work" description="Everything is ridden or walked first. We choose first. A region can fund a trip, never the place on the site. Paid and partner content is always labelled." path="/how-we-work/" crumbs={[{ name: 'How we work', href: '/how-we-work/' }]}>
+<Layout preload={preload} title="How we work" description="Everything is ridden or walked first. We choose first. A region can fund a trip, never the place on the site. Paid and partner content is always labelled." path="/how-we-work/" crumbs={[{ name: 'How we work', href: '/how-we-work/' }]}>
+  <Hero compact set="watchtowers" photo={heroPhoto}>
+    <h1>How we work</h1>
+    <p class="lede" style="margin:0">The rules are short. They do not bend.</p>
+  </Hero>
   <section class="section">
     <div class="narrow prose">
-      <h1>How we work</h1>
       <h2>Ridden first</h2>
       <p>Everything on GravelBoost is ridden and, where it fits, walked by us. We do not write about places we have not been.</p>
       <h2>We choose first</h2>

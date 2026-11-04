@@ -41,3 +41,13 @@ export function euro(price: number) {
 export function formatDate(d: Date | null) {
   return d ? d.toISOString().slice(0, 10) : null;
 }
+
+export const SHOW_TODOS = process.env.CONTEXT !== 'production' || process.env.PUBLIC_SHOW_TODOS === 'true';
+
+export function isOpen(text = '') {
+  return /lorem ipsum/i.test(text) || /^\s*\[/.test(text);
+}
+
+export function hideOpen(text = '') {
+  return !SHOW_TODOS && isOpen(text);
+}

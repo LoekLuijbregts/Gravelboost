@@ -133,7 +133,7 @@ document.querySelectorAll<HTMLFormElement>('form[data-form]').forEach((form) => 
     };
     const { portal, formId, form: kind } = form.dataset;
     if (!portal || !formId) {
-      say(form.dataset.msgNotConnected ?? '[PLACEHOLDER] This form is not connected to HubSpot yet.');
+      say(form.dataset.msgNotConnected ?? 'This form is not open yet. Write to loek@cyclingincubators.com.');
       return;
     }
     const fields = [...new FormData(form).entries()]

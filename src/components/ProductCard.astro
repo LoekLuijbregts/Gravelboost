@@ -1,29 +1,34 @@
 ---
-import { euro } from '../lib/site';
+import { euro, isOpen, SHOW_TODOS } from '../lib/site';
+import Photo from './Photo.astro';
 
 interface Props {
   product: { id: string; data: { name: string; kind: string; summary: string; contents: string[]; price: number; examplePrice: boolean; shopifyUrl: string; partnerPerks: { partner: string; perk: string }[] } };
+  image?: { set: string; photo: { file: string; alt: string; credit: string; focus?: string } };
 }
-const { data: p, id } = Astro.props.product;
+const { product, image } = Astro.props;
+const { data: p, id } = product;
+const perks = SHOW_TODOS ? p.partnerPerks : p.partnerPerks.filter((x) => !isOpen(x.partner));
 ---
 <article class="product" id={`pack-${id}`}>
-  <p class="eyebrow" style="margin:0">{p.kind === 'bundle' ? 'Bundle' : 'Pack'}</p>
-  <h3>{p.name}</h3>
-  <p style="margin:0">{p.summary}</p>
-  <p class="price" style="margin:0">{euro(p.price)} {p.examplePrice && <span class="tag tag--example">Example price</span>}</p>
-  <details>
-    <summary data-event="pack_click" data-label={id}>What is inside</summary>
-    <ul>{p.contents.map((c) => <li>{c}</li>)}</ul>
-  </details>
-  {p.partnerPerks.length > 0 && (
-    <div class="perks">
-      <span class="tag tag--partner">Partner content</span>
-      <ul>{p.partnerPerks.map((x) => <li><strong>{x.partner}</strong>: {x.perk}</li>)}</ul>
+  {image && <Photo set={image.set} photo={image.photo} ratio="card" caption={false} sizes="(min-width: 900px) 360px, 100vw" />}
+  <div class="product-body">
+    <p class="eyebrow" style="margin:0">{p.kind === 'bundle' ? 'Bundle' : 'Pack'}</p>
+    <h3>{p.name}</h3>
+    <p class="price" style="margin:0">{euro(p.price)} {p.examplePrice && <span class="tag tag--example">Example price</span>}</p>
+    <p style="margin:0">{p.summary}</p>
+    <ul class="ticks">{p.contents.map((c) => <li>{c}</li>)}</ul>
+    {perks.length > 0 && (
+      <div class="perks">
+        <span class="tag tag--partner">Partner content</span>
+        <ul>{perks.map((x) => <li><strong>{x.partner}</strong>: {x.perk}</li>)}</ul>
+      </div>
+    )}
+    <div class="btn-row" style="margin-top:auto;padding-top:.5rem">
+      {p.shopifyUrl
+        ? <a class="btn" href={p.shopifyUrl} data-event="purchase_click" data-label={id}>Buy for {euro(p.price)}</a>
+        : <span class="btn" aria-disabled="true">{SHOW_TODOS ? 'Buy [PLACEHOLDER Shopify link]' : 'Coming soon'}</span>}
     </div>
-  )}
-  <div class="btn-row" style="margin-top:auto">
-    {p.shopifyUrl
-      ? <a class="btn" href={p.shopifyUrl} data-event="purchase_click" data-label={id}>Buy {euro(p.price)}</a>
-      : <span class="btn" aria-disabled="true">Buy [PLACEHOLDER Shopify link]</span>}
+    {p.shopifyUrl && <p class="muted" style="font-size:.85rem;margin:0">Digital download. Pay in our shop, then download.</p>}
   </div>
 </article>

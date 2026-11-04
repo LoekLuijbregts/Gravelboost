@@ -1,16 +1,17 @@
 ---
 title: All Along The Watchtowers
-description: Five routes from Tilburg along five lookout towers, on gravel and on the road. Pick a long day or a shorter loop.
+description: Five loops around Tilburg past five lookout towers, on gravel and on the road. Pick a long day or a shorter loop.
 destination: tilburg
 days: 1 day per route
 level: 3
 bestMonths: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 bestMonthsNote: '[CHECK best months]'
+routeNote: Closed loops you can start anywhere
 start:
-  name: Tilburg Centraal
+  name: Anywhere on the loop
   station: Tilburg Centraal
 end:
-  name: Tilburg Centraal
+  name: Back where you started
   station: Tilburg Centraal
 loops:
   - id: gravel-long
@@ -19,7 +20,7 @@ loops:
     gpx: watchtowers-gravel-long
     level: 3
     surface: Gravel [CHECK share of paved]
-    summary: The long gravel version, the full collection in one day.
+    summary: The long gravel version. Its closest point is about 2 km from Tilburg Centraal.
     cover: watchtowers-war-memorial-plane-rider-by-loek-luijbregts.webp
   - id: gravel-north
     name: Gravel, north loop
@@ -27,15 +28,15 @@ loops:
     gpx: watchtowers-gravel-north
     level: 2
     surface: Gravel [CHECK share of paved]
-    summary: The shorter gravel loop to the north of the long route.
-    cover: watchtowers-lake-tower-drone-by-loek-luijbregts.webp
+    summary: The shorter gravel loop in the north. Its closest point is about 2 km from Tilburg Centraal.
+    cover: watchtowers-forest-gravel-rider-by-loek-luijbregts.webp
   - id: gravel-south
     name: Gravel, south loop
     activity: gravel
     gpx: watchtowers-gravel-south
     level: 2
     surface: Gravel [CHECK share of paved]
-    summary: The shortest gravel loop, to the south.
+    summary: The shortest gravel loop, in the south. Its closest point is about 5 km from Tilburg Centraal.
     cover: watchtowers-tower-stop-group-by-loek-luijbregts.webp
   - id: road-long
     name: Road, long
@@ -43,7 +44,7 @@ loops:
     gpx: watchtowers-road-long
     level: 3
     surface: Paved
-    summary: The long road version for road bikes.
+    summary: The long road version. It passes about 200 m from Tilburg Centraal and goes past the Kempentoren.
     cover: watchtowers-tower-riders-hero-by-loek-luijbregts.webp
   - id: road-short
     name: Road, short
@@ -51,7 +52,7 @@ loops:
     gpx: watchtowers-road-short
     level: 2
     surface: Paved
-    summary: The shorter road version for road bikes.
+    summary: The shorter road version. It passes about 200 m from Tilburg Centraal and goes past the Kempentoren.
     cover: watchtowers-slanted-tower-drone-by-loek-luijbregts.webp
 towers:
   - name: De Kempentoren
@@ -66,6 +67,11 @@ towers:
     place: Between Oisterwijk and Boxtel, on the Banisveld
 photoSet: watchtowers
 photos:
+  - file: watchtowers-lake-tower-drone-by-loek-luijbregts.webp
+    alt: 'A drone view of a lookout tower on heath beside a large lake, with a few riders at its foot.'
+    credit: 'by Loek Luijbregts'
+    caption: 'The tower by the lake. [CHECK tower name]'
+    focus: center
   - file: watchtowers-tower-riders-hero-by-loek-luijbregts.webp
     alt: 'Three riders on a gravel path pass a tall open tower made of wooden poles and steel stairs.'
     credit: 'by Loek Luijbregts'
@@ -85,11 +91,6 @@ photos:
     alt: 'A rider with a purple handlebar bag on a sandy forest gravel track.'
     credit: 'by Loek Luijbregts'
     caption: 'Soft forest gravel.'
-    focus: center
-  - file: watchtowers-lake-tower-drone-by-loek-luijbregts.webp
-    alt: 'A drone view of a lookout tower on heath beside a large lake, with a few riders at its foot.'
-    credit: 'by Loek Luijbregts'
-    caption: 'The tower by the lake. [CHECK tower name]'
     focus: center
   - file: watchtowers-slanted-tower-drone-by-loek-luijbregts.webp
     alt: 'A drone view of a long slanted lookout tower on a hill next to a motorway, with a small group of riders beside it.'
@@ -151,7 +152,7 @@ honestAnswers:
   foodWater:
     answer: '[PLACEHOLDER] Where to eat and fill bottles. The village pump photo suggests water on the way. [CHECK]'
   gettingThere:
-    answer: Every route starts and ends at Tilburg Centraal. [CHECK that all five do]
+    answer: Take the train to Tilburg Centraal. The road routes pass about 200 m from the station. The gravel routes are about 2 to 5 km away in a straight line, so you ride to the loop first. [CHECK the best way to ride there]
   sleeping:
     answer: '[PLACEHOLDER] Where you can sleep with your bike.'
   ebike:
@@ -163,8 +164,8 @@ provenance:
   paid: false
 products: [watchtowers-gravel, watchtowers-road, watchtowers-everything]
 ---
-All Along The Watchtowers is a collection of routes from Tilburg along lookout towers. There are five routes: three on gravel and two on the road.
+All Along The Watchtowers is a collection of routes around Tilburg past lookout towers. There are five loops: three on gravel and two on the road.
 
-The towers are in Tilburg, Hilvarenbeek and the area between Oisterwijk and Boxtel. You can climb them for the view. Every route can be ridden from any point, but the GPX files start at Tilburg Centraal.
+The towers are in Tilburg, Hilvarenbeek and the area between Oisterwijk and Boxtel. You can climb them for the view. Every route is a closed loop, so you can start at any point. Not every route passes every tower: the Kempentoren is only on the road routes.
 
 The names, towers and route lengths follow the public pages of Bezoek Oisterwijk and Bezoek Hilvarenbeek. [CHECK: the Hilvarenbeek page lists four towers and the Oisterwijk page lists five]

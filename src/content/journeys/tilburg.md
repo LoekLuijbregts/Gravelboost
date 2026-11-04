@@ -6,6 +6,7 @@ days: 1 day per loop
 level: 2
 bestMonths: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 bestMonthsNote: Ten months a year. For fans it is good to ride all year.
+routeNote: Start and finish by Tilburg Centraal
 start:
   name: Tilburg Centraal
   station: Tilburg Centraal
@@ -22,14 +23,14 @@ loops:
     summary: Gravel paths around the city, with stops at the Koningshoeven abbey and its brewery terrace, the Leijpark and the burial mounds of the Regte Heide.
     komootTourId: '3305429191'
     freeGpxUrl: https://www.infointilburg.com/nl/route/moutainbikeroute-loonse-en-drunese-duinen
-    cover: tilburg-heath-gravel-rider-by-loek-luijbregts.webp
+    cover: tilburg-lake-track-rider-by-loek-luijbregts.webp
   - id: mtb
     name: Tilburg Mountainbike Highlights
     activity: mtb
     gpx: tilburg-mtb-highlights
     level: 3
     surface: Mostly mountain bike terrain, some paved
-    summary: Singletrack and sandy trails in the woods around the city, starting near the Kempentoren. [CHECK area names]
+    summary: Singletrack and sandy trails in the woods around the city, finishing at the Kempentoren. [CHECK area names]
     komootTourId: '3306180661'
     freeGpxUrl: https://www.infointilburg.com/nl/route/moutainbikeroute-loonse-en-drunese-duinen
     cover: tilburg-mtb-sunken-trail-by-loek-luijbregts.webp
@@ -176,7 +177,7 @@ provenance:
 products: [tilburg-ride-pack]
 noindex: true
 ---
-Tilburg is a good place to start a cycling trip. You arrive by train, and both loops start and end at Tilburg Centraal.
+Tilburg is a good place to start a cycling trip. You arrive by train, and both loops start and end right by Tilburg Centraal.
 
 There is gravel to the south and mountain bike terrain in the woods. There is also a lot to do when you are off the bike. That is why this trip has two parts: the ride, and the day in the city around it.
 

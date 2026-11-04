@@ -3,7 +3,6 @@ import { getEntry, getEntries, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import Hero from './Hero.astro';
 import Photo from './Photo.astro';
-import Stats from './Stats.astro';
 import RouteMap from './RouteMap.astro';
 import Elevation from './Elevation.astro';
 import Months from './Months.astro';
@@ -13,7 +12,7 @@ import Gallery from './Gallery.astro';
 import ProductCard from './ProductCard.astro';
 import Provenance from './Provenance.astro';
 import { getGpx } from '../lib/gpx';
-import { ACTIVITY_LABEL, ENV } from '../lib/site';
+import { ACTIVITY_LABEL } from '../lib/site';
 
 interface Props { journey: CollectionEntry<'journeys'> }
 const { journey } = Astro.props;
@@ -26,27 +25,64 @@ const COLORS = ['#C2410C', '#2F5D3F', '#2B6C8F', '#8A5A00', '#16211B'];
 const komootToken = (id: string) => import.meta.env[`KOMOOT_TOKEN_${id}`] ?? process.env[`KOMOOT_TOKEN_${id}`] ?? '';
 const firstFree = j.loops.find((l) => l.freeGpxUrl)?.freeGpxUrl;
 const coverFor = (file?: string) => (file ? j.photos.find((p) => p.file === file) : undefined);
+const gpx = j.loops.map((l) => getGpx(l.gpx)).filter((g) => g !== null);
+const range = (a: number[], unit: string) => (Math.min(...a) === Math.max(...a) ? `${a[0]} ${unit}` : `${Math.min(...a)} to ${Math.max(...a)} ${unit}`);
+const levels = j.loops.map((l) => l.level ?? j.level);
+const activities = [...new Set(j.loops.map((l) => ACTIVITY_LABEL[l.activity]))].join(' and ');
+const many = j.loops.length > 2;
+const packImages = j.photos.filter((p) => !j.loops.some((l) => l.cover === p.file)).slice(1);
+const finish = j.end.name !== j.start.name;
 ---
 <Hero set={j.photoSet} photo={hero}>
-  <p class="eyebrow" style="color:#fff;opacity:.9">{destination?.data.name} · {j.start.station ? `Start and finish at ${j.start.station}` : j.start.name}</p>
+  <p class="eyebrow eyebrow--light">{destination?.data.name}{j.routeNote ? ` · ${j.routeNote}` : ''}</p>
   <h1>{j.title}</h1>
-  {j.provenance.paid && <p style="margin:0 0 .6rem"><span class="tag tag--paid">Commissioned route</span></p>}
-  {j.loops.map((l) => <Stats loop={l} days={j.days} level={j.level} heading={j.loops.length > 1} headingLevel="h2" />)}
+  {j.provenance.paid && <p style="margin:0"><span class="tag tag--paid">Commissioned route</span></p>}
 </Hero>
 
-<div class="actions">
+<div class="band">
   <div class="wrap">
-    <div class="btn-row">
-      <a class="btn" href="#map">Open map</a>
-      {firstFree
-        ? <a class="btn btn--ghost" href={firstFree} rel="noopener" data-event="gpx_click" data-label={journey.id}>Free GPX [LINK]</a>
-        : <a class="btn btn--ghost" href="#packs" data-event="gpx_click" data-label={journey.id}>GPX (in pack)</a>}
-      <a class="btn btn--ghost" href="#packs" data-event="pack_click" data-label={journey.id}>Offline guide (in pack)</a>
-      <button class="btn btn--ghost" type="button" data-share data-msg-copied="Link copied. Paste it in a message to your phone.">Send to phone</button>
-      <a class="btn btn--green" href="/request-a-route/">Plan a trip</a>
-    </div>
-    <p class="status" id="share-status" role="status"></p>
+    {many ? (
+      <ul class="stats">
+        <li><span class="k">Routes</span><span class="v">{j.loops.length}</span></li>
+        <li><span class="k">Distance</span><span class="v">{range(gpx.map((g) => g.distanceKm), 'km')}</span></li>
+        <li><span class="k">Climbing</span><span class="v">{range(gpx.map((g) => g.ascentM), 'm')}</span></li>
+        <li><span class="k">Time</span><span class="v">{j.days}</span></li>
+        <li><span class="k">Surface</span><span class="v">{activities}</span></li>
+        <li><span class="k">Adventure level</span><span class="v">{range(levels, 'of 5')}</span></li>
+      </ul>
+    ) : (
+      <div class="band-loops">
+        {j.loops.map((l) => {
+          const g = getGpx(l.gpx);
+          return (
+            <div>
+              <h2>{l.name}</h2>
+              <ul class="stats">
+                <li><span class="k">Distance</span><span class="v">{g?.distanceKm} km</span></li>
+                <li><span class="k">Climbing</span><span class="v">{g?.ascentM} m</span></li>
+                <li><span class="k">Time</span><span class="v">{j.days}</span></li>
+                <li><span class="k">Level</span><span class="v">{l.level ?? j.level} of 5</span></li>
+                <li class="wide"><span class="k">Surface</span><span class="v v--text">{l.surface}</span></li>
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+    )}
   </div>
+</div>
+
+<div class="actions">
+  <div class="wrap actions-row">
+    <a class="btn btn--ghost" href="#map">Open map</a>
+    {firstFree
+      ? <a class="btn btn--ghost" href={firstFree} rel="noopener" data-event="gpx_click" data-label={journey.id}>Free GPX [LINK]</a>
+      : <a class="btn btn--ghost" href="#packs" data-event="gpx_click" data-label={journey.id}>GPX (in pack)</a>}
+    <a class="btn" href="#packs" data-event="pack_click" data-label={journey.id}>Offline guide (in pack)</a>
+    <button class="btn btn--ghost" type="button" data-share data-msg-copied="Link copied. Paste it in a message to your phone.">Send to phone</button>
+    <a class="btn btn--green" href="/request-a-route/">Plan a trip</a>
+  </div>
+  <p class="wrap status" id="share-status" role="status"></p>
 </div>
 
 <section class="section" aria-labelledby="map-h">
@@ -56,26 +92,28 @@ const coverFor = (file?: string) => (file ? j.photos.find((p) => p.file === file
     <div class="loops">
       {j.loops.map((l, i) => {
         const cover = coverFor(l.cover);
+        const g = getGpx(l.gpx);
         const token = l.komootTourId ? komootToken(l.komootTourId) : '';
         return (
           <article class="loop" id={`loop-${l.id}`}>
             {cover && <Photo set={j.photoSet} photo={cover} ratio="card" caption={false} sizes="(min-width: 900px) 360px, 100vw" />}
             <div class="loop-body">
-              <p class="eyebrow" style="margin:0">{ACTIVITY_LABEL[l.activity]}</p>
+              <p class="eyebrow" style="margin:0"><i class="dot" style={`background:${COLORS[i % COLORS.length]}`}></i>{ACTIVITY_LABEL[l.activity]}</p>
               <h3>{l.name}</h3>
-              <Stats loop={l} days={j.days} level={j.level} heading={false} />
-              <p>{l.summary}</p>
+              <p class="facts-line"><strong>{g?.distanceKm} km</strong> · <strong>{g?.ascentM} m</strong> climbing · level <strong>{l.level ?? j.level}</strong> of 5</p>
+              <p class="muted" style="margin:0 0 .4rem">{l.surface}</p>
+              <p style="margin:0">{l.summary}</p>
               <Elevation gpx={l.gpx} name={l.name} color={COLORS[i % COLORS.length]} />
               <div class="btn-row" style="margin-top:.8rem">
                 {l.freeGpxUrl
                   ? <a class="btn btn--ghost" href={l.freeGpxUrl} rel="noopener" data-event="gpx_click" data-label={l.id}>Free GPX [LINK]</a>
                   : <a class="btn btn--ghost" href="#packs" data-event="gpx_click" data-label={l.id}>GPX (in pack)</a>}
+                {token && (
+                  <div class="komoot" data-komoot={l.komootTourId} data-token={token} data-title={`${l.name} on Komoot`}>
+                    <button class="btn btn--ghost" type="button">Show on Komoot</button>
+                  </div>
+                )}
               </div>
-              {token && (
-                <div class="komoot" data-komoot={l.komootTourId} data-token={token} data-title={`${l.name} on Komoot`}>
-                  <button class="btn btn--ghost" type="button">Show on Komoot</button>
-                </div>
-              )}
             </div>
           </article>
         );
@@ -84,8 +122,15 @@ const coverFor = (file?: string) => (file ? j.photos.find((p) => p.file === file
   </div>
 </section>
 
-<section class="section" style="padding-top:0" aria-labelledby="story-h">
-  <div class="wrap" style="display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+<section class="section section--white" id="packs" aria-labelledby="packs-h">
+  <div class="wrap">
+    <h2 id="packs-h">Take it with you</h2>
+    <div class="grid">{products.map((p, i) => <ProductCard product={p} image={packImages[i] ? { set: j.photoSet, photo: packImages[i] } : undefined} />)}</div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="story-h">
+  <div class="wrap story">
     <div class="prose">
       <h2 id="story-h">The ride</h2>
       <Content />
@@ -96,23 +141,19 @@ const coverFor = (file?: string) => (file ? j.photos.find((p) => p.file === file
         </>
       )}
     </div>
-    <dl class="facts" style="align-content:start">
-      <div><dt>Best months</dt><dd><Months months={j.bestMonths} />{j.bestMonthsNote && <span class="muted" style="font-size:.9rem">{j.bestMonthsNote}</span>}</dd></div>
-      <div><dt>Start</dt><dd>{j.start.name}{j.start.station && j.start.station !== j.start.name ? `, ${j.start.station}` : ' (train station)'}</dd></div>
-      <div><dt>Finish</dt><dd>{j.end.name}{j.end.station && j.end.station !== j.end.name ? `, ${j.end.station}` : ' (train station)'}</dd></div>
-      <div><dt>Days</dt><dd>{j.days}</dd></div>
-    </dl>
+    <aside class="fact-card">
+      <dl class="facts">
+        <div><dt>Best months</dt><dd><Months months={j.bestMonths} />{j.bestMonthsNote && <span class="muted" style="font-size:.9rem">{j.bestMonthsNote}</span>}</dd></div>
+        <div><dt>Start</dt><dd>{j.start.name}</dd></div>
+        {finish && <div><dt>Finish</dt><dd>{j.end.name}</dd></div>}
+        {j.start.station && <div><dt>Train station</dt><dd>{j.start.station}</dd></div>}
+        <div><dt>Time</dt><dd>{j.days}</dd></div>
+      </dl>
+    </aside>
   </div>
 </section>
 
 <HonestAnswers answers={j.honestAnswers} />
-<Gallery set={j.photoSet} photos={j.photos} />
 <OffTheBike items={j.offTheBike} preview={j.offTheBikePreview ? 3 : undefined} intro={j.offTheBikePreview} packHref="#packs" />
-
-<section class="section" id="packs" aria-labelledby="packs-h">
-  <div class="wrap">
-    <h2 id="packs-h">Take it with you</h2>
-    <div class="grid">{products.map((p) => <ProductCard product={p} />)}</div>
-    <Provenance text={j.provenance.text} paid={j.provenance.paid} />
-  </div>
-</section>
+<Gallery set={j.photoSet} photos={j.photos} />
+<div class="wrap"><Provenance text={j.provenance.text} paid={j.provenance.paid} /></div>

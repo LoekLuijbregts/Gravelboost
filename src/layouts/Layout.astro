@@ -65,9 +65,15 @@ const nav = [
     <header class="site-header">
       <div class="wrap bar">
         <a class="brand" href="/" translate="no">Gravel<span>Boost</span></a>
-        <nav aria-label="Main">
+        <nav class="nav-desktop" aria-label="Main">
           {nav.map((n) => <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>)}
         </nav>
+        <details class="menu">
+          <summary aria-label="Menu">Menu</summary>
+          <nav aria-label="Main, mobile">
+            {nav.map((n) => <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>)}
+          </nav>
+        </details>
         <details class="lang" data-lang-menu>
           <summary aria-label="Language">EN</summary>
           <ul>
@@ -114,7 +120,7 @@ const nav = [
     </footer>
     <div id="consent" class="consent" role="dialog" aria-labelledby="consent-title" hidden>
       <div class="wrap inner">
-        <p id="consent-title">We use analytics cookies to see which pages help riders. They stay off unless you say yes. <a href="/privacy/">Read the privacy policy</a></p>
+        <p id="consent-title">Analytics cookies stay off unless you say yes. <a href="/privacy/">Read the privacy policy</a></p>
         <div class="btn-row">
           <button type="button" class="btn" id="consent-accept">Accept</button>
           <button type="button" class="btn btn--ghost" id="consent-decline">Decline</button>

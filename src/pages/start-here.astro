@@ -1,10 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import { heroPreload } from '../lib/photos';
+import { getEntry } from 'astro:content';
+import LevelScale from '../components/LevelScale.astro';
+const towers = (await getEntry('journeys', 'all-along-the-watchtowers'))!;
+const heroPhoto = towers.data.photos.find((p) => p.file.includes('watchtowers-forest-gravel-rider'))!;
+const preload = await heroPreload('watchtowers', heroPhoto.file);
 ---
-<Layout title="Start here" description="New to GravelBoost? Learn how to pick a route, what the adventure levels mean and how to read a journey page." path="/start-here/" crumbs={[{ name: 'Start here', href: '/start-here/' }]}>
+<Layout preload={preload} title="Start here" description="New to GravelBoost? Learn how to pick a route, what the adventure levels mean and how to read a journey page." path="/start-here/" crumbs={[{ name: 'Start here', href: '/start-here/' }]}>
+  <Hero compact set="watchtowers" photo={heroPhoto}>
+    <h1>Start here</h1>
+    <p class="lede" style="margin:0">Three steps to your first ride.</p>
+  </Hero>
   <section class="section">
     <div class="narrow prose">
-      <h1>Start here</h1>
       <p>GravelBoost helps you find adventure rides in Europe that are not extreme. Every route is ridden first, so we can tell you what it is really like.</p>
       <h2>Pick a route in three steps</h2>
       <ol>
@@ -14,14 +24,7 @@ import Layout from '../layouts/Layout.astro';
       </ol>
       <h2>Adventure level</h2>
       <p>Every journey has a level from 1 to 5.</p>
-      <ul>
-        <li><strong>1</strong>: Easy. Wide, firm paths and short days.</li>
-        <li><strong>2</strong>: Accessible. Mostly firm gravel, a few soft parts.</li>
-        <li><strong>3</strong>: Adventurous. Longer days, sand or rough bits.</li>
-        <li><strong>4</strong>: Demanding. Remote or rough. You need skills and spares.</li>
-        <li><strong>5</strong>: Extreme. We do not focus on this level.</li>
-      </ul>
-      <p class="muted">[CHECK this scale before launch]</p>
+      <LevelScale />
       <h2>What do you need?</h2>
       <p>A gravel bike or a mountain bike, depending on the route. Each journey says what fits. If you ride an e-bike or ride with kids, the Honest answers tell you if it works.</p>
       <h2>Where to start</h2>

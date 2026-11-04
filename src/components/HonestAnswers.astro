@@ -1,23 +1,29 @@
 ---
-import { ANSWER_QUESTIONS, formatDate } from '../lib/site';
+import { ANSWER_QUESTIONS, formatDate, hideOpen, SHOW_TODOS } from '../lib/site';
 
 interface Props { answers: Record<string, { answer: string; checked: Date | null }> }
 const { answers } = Astro.props;
+const anyOpen = Object.values(answers).some((a) => hideOpen(a.answer));
 ---
-<section class="section" id="honest-answers" aria-labelledby="honest-h">
+<section class="section section--white" id="honest-answers" aria-labelledby="honest-h">
   <div class="wrap">
     <h2 id="honest-h">Honest answers</h2>
-    <p class="muted" style="max-width:40rem">The questions riders ask before they go. Each answer shows when we last checked it.</p>
+    <p class="muted" style="max-width:40rem">The questions riders ask before they go. Each answer shows when we last checked it.{anyOpen && <> Still open means we have not checked it yet. We would rather say so than guess. <a href="/request-a-route/">Ask us</a>.</>}</p>
     <dl class="answers">
-      {Object.entries(ANSWER_QUESTIONS).map(([key, q]) => (
-        <div>
-          <dt>{q}</dt>
-          <dd>
-            {answers[key].answer}
-            <span class="checked">{answers[key].checked ? `Last checked ${formatDate(answers[key].checked)}` : 'Last checked: [CHECK] not checked yet'}</span>
-          </dd>
-        </div>
-      ))}
+      {Object.entries(ANSWER_QUESTIONS).map(([key, q]) => {
+        const a = answers[key];
+        const open = hideOpen(a.answer);
+        return (
+          <div>
+            <dt>{q}</dt>
+            <dd>
+              {open ? <span class="muted">Still open.</span> : a.answer}
+              {!open && a.checked && <span class="checked">Last checked {formatDate(a.checked)}</span>}
+              {!open && !a.checked && SHOW_TODOS && <span class="checked">Last checked: [CHECK] not checked yet</span>}
+            </dd>
+          </div>
+        );
+      })}
     </dl>
   </div>
 </section>

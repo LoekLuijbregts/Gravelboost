@@ -4,15 +4,17 @@ import { sources } from '../lib/photos';
 interface Props {
   set: string;
   photo: { file: string; alt: string; credit: string; focus?: string };
+  compact?: boolean;
 }
-const { set, photo } = Astro.props;
+const { set, photo, compact = false } = Astro.props;
 const wide = await sources(set, photo.file, 'hero', photo.focus ?? 'center');
 const tall = await sources(set, photo.file, 'portrait', photo.focus ?? 'center');
+const pos = { top: 'center top', bottom: 'center bottom', left: 'left center', right: 'right center', center: 'center' }[photo.focus ?? 'center'];
 ---
-<div class="hero">
+<div class:list={['hero', { 'hero--compact': compact }]}>
   <picture>
     <source media="(max-width: 640px)" srcset={tall.srcset} sizes="100vw" />
-    <img src={wide.src} srcset={wide.srcset} sizes="100vw" width={wide.width} height={wide.height} alt={photo.alt} fetchpriority="high" decoding="sync" />
+    <img src={wide.src} srcset={wide.srcset} sizes="100vw" width={wide.width} height={wide.height} alt={photo.alt} fetchpriority="high" decoding="sync" style={`object-position:${pos}`} />
   </picture>
   <span class="credit">{photo.credit}</span>
   <div class="hero-copy"><div class="wrap"><slot /></div></div>

@@ -26,6 +26,17 @@ function routeOf(dist, file) {
   return '/' + rel.replace(/index\.html$/, '');
 }
 
+function stripTodos($) {
+  $('body *')
+    .contents()
+    .each((_, n) => {
+      if (n.type === 'text' && !$(n).parents('script,style').length) n.data = n.data.replace(TODO, '');
+    });
+  $('main p:not(.status), main .meta, main .checked').each((_, el) => {
+    if (!$(el).text().trim() && !$(el).find('img,svg,a,input').length) $(el).remove();
+  });
+}
+
 function markTodos($) {
   const hits = [];
   $('body *')
@@ -175,7 +186,8 @@ export default function translate() {
         for (const file of files) {
           const route = routeOf(dist, file);
           const $ = cheerio.load(fs.readFileSync(file, 'utf8'));
-          markTodos($);
+          if (process.env.CONTEXT === 'production' && process.env.PUBLIC_SHOW_TODOS !== 'true') stripTodos($);
+          else markTodos($);
           pages.push({ file, route, html: $.html(), $ });
         }
         const real = pages.filter((p) => p.route);
