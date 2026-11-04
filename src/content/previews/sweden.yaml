@@ -1,0 +1,17 @@
+name: 'Bergslagen'
+country: 'Sweden'
+note: 'Forest roads and lakes'
+when: 'Ridden in 2022'
+photos:
+  - file: sweden-jetty-rider-by-jeffrey-wiese-with-loek-luijbregts.webp
+    alt: 'A rider at the end of a wooden jetty on a frozen lake among pine trees in Sweden.'
+    credit: 'by Jeffrey Wiese with Loek Luijbregts'
+  - file: sweden-two-riders-gravel-by-jeffrey-wiese-with-loek-luijbregts.webp
+    alt: 'Two riders coming down a wide gravel road through pine forest in Sweden.'
+    credit: 'by Jeffrey Wiese with Loek Luijbregts'
+  - file: sweden-gravel-avenue-by-loek-luijbregts.webp
+    alt: 'A straight gravel road between green fields and a line of trees in Sweden.'
+    credit: 'by Loek Luijbregts'
+  - file: sweden-quarry-rest-by-loek-luijbregts.webp
+    alt: 'Two riders resting beside their bikes in front of a rock wall and water in Sweden.'
+    credit: 'by Loek Luijbregts'

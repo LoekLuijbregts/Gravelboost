@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import Photo from '../../components/Photo.astro';
+import { heroPreload } from '../../lib/photos';
+
+export async function getStaticPaths() {
+  const all = await getCollection('previews');
+  return all.map((place) => ({ params: { slug: place.id }, props: { place } }));
+}
+const { place } = Astro.props;
+const d = place.data;
+const set = `places/${place.id}`;
+const href = `/places/${place.id}/`;
+const preload = await heroPreload(set, d.photos[0].file);
+---
+<Layout preload={preload} noindex title={d.name} description={`Photos from ${d.name}, ${d.country}. ${d.when}. No guide yet.`} path={href} image={`/photos/${set}/${d.photos[0].file}`} crumbs={[{ name: 'Destinations', href: '/destinations/' }, { name: d.name, href }]}>
+  <Hero size="page" set={set} photo={d.photos[0]}>
+    <p class="eyebrow eyebrow--light">{d.country} · No guide yet</p>
+    <h1>{d.name}</h1>
+    <p class="lede">{d.note}. {d.when}.</p>
+  </Hero>
+  <section class="section">
+    <div class="wrap">
+      <div class="gallery">
+        {d.photos.slice(1).map((p) => <Photo set={set} photo={p} ratio="auto" zoom sizes="(min-width: 1100px) 420px, (min-width: 700px) 50vw, 100vw" />)}
+      </div>
+      <div class="cta-box">
+        <h2>Want a guide for {d.name}?</h2>
+        <p>There is no route or guide here yet. These are photos from when we were there. Tell us if you want this one next.</p>
+        <div class="btn-row">
+          <a class="btn" href={`/request-a-route/?place=${encodeURIComponent(d.name)}`}>I want this guide</a>
+          <a class="link-go" href="/rides/">See rides you can do now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

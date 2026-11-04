@@ -1,0 +1,17 @@
+name: 'Cappadocia'
+country: 'Turkey'
+note: 'Hot air balloons and white rock'
+when: 'Ridden in 2022'
+photos:
+  - file: cappadocia-rider-balloons-by-loek-luijbregts.webp
+    alt: 'A rider with a loaded gravel bike on a dry plain with hot air balloons in the sky over Cappadocia.'
+    credit: 'by Loek Luijbregts'
+  - file: cappadocia-balloons-ridge-by-loek-luijbregts.webp
+    alt: 'Hot air balloons around a layered ridge at sunrise in Cappadocia.'
+    credit: 'by Loek Luijbregts'
+  - file: cappadocia-canyon-riders-by-loek-luijbregts.webp
+    alt: 'Riders in a pale sandstone canyon seen from above in Cappadocia.'
+    credit: 'by Loek Luijbregts'
+  - file: cappadocia-rider-white-rock-by-loek-luijbregts.webp
+    alt: 'A rider standing over a mountain bike on pale rock under a blue sky in Cappadocia.'
+    credit: 'by Loek Luijbregts'

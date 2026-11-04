@@ -254,3 +254,5 @@ input:focus, textarea:focus { border-color: var(--accent); }
   .tile-img img { transition: none; }
 }
 .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.cta-box { background: var(--card); border-radius: var(--r); padding: clamp(1.2rem, 3vw, 2.2rem); margin-top: 1.4rem; }
+.cta-box h2 { margin-bottom: .3em; }

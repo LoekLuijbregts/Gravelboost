@@ -92,6 +92,46 @@ Nothing open.
 - A lookout tower by the water. [CHECK tower name] by Loek Luijbregts
 - Dinner after the ride. [CHECK restaurant] by Loek Luijbregts
 
+## /places/canary-islands/
+
+Nothing open.
+
+## /places/cappadocia/
+
+Nothing open.
+
+## /places/costa-blanca/
+
+Nothing open.
+
+## /places/cyprus/
+
+Nothing open.
+
+## /places/girona/
+
+Nothing open.
+
+## /places/iceland/
+
+Nothing open.
+
+## /places/morocco/
+
+Nothing open.
+
+## /places/scotland/
+
+Nothing open.
+
+## /places/sweden/
+
+Nothing open.
+
+## /places/vosges/
+
+Nothing open.
+
 ## /privacy/
 
 - [CHECK legal text with Cycling Incubators]

@@ -171,4 +171,15 @@ const places = defineCollection({
   }),
 });
 
-export const collections = { journeys, destinations, products, events, places };
+const previews = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/previews' }),
+  schema: z.object({
+    name: z.string(),
+    country: z.string(),
+    note: z.string(),
+    when: z.string(),
+    photos: z.array(photo).min(1),
+  }),
+});
+
+export const collections = { journeys, destinations, products, events, places, previews };

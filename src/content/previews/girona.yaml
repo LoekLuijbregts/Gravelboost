@@ -1,0 +1,17 @@
+name: 'Girona'
+country: 'Spain'
+note: 'Pine forest and hill views'
+when: 'Ridden in 2021'
+photos:
+  - file: girona-view-rider-by-loek-luijbregts.webp
+    alt: 'A rider with a gravel bike looking over a wide green valley near Girona.'
+    credit: 'by Loek Luijbregts'
+  - file: girona-forest-bend-rider-by-loek-luijbregts.webp
+    alt: 'A rider on a wide gravel bend through tall pine trees near Girona.'
+    credit: 'by Loek Luijbregts'
+  - file: girona-switchbacks-view-by-loek-luijbregts.webp
+    alt: 'A rider looking at gravel switchbacks in a forested valley near Girona.'
+    credit: 'by Loek Luijbregts'
+  - file: girona-village-street-by-loek-luijbregts.webp
+    alt: 'A rider stopped on a street in an old hill town near Girona.'
+    credit: 'by Loek Luijbregts'

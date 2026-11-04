@@ -1,0 +1,17 @@
+name: 'Vosges'
+country: 'France'
+note: 'Forest gravel and big views'
+when: 'Ridden in 2022'
+photos:
+  - file: vosges-water-splash-by-loek-luijbregts.webp
+    alt: 'A rider splashing through a large puddle on gravel in the Vosges.'
+    credit: 'by Loek Luijbregts'
+  - file: vosges-three-riders-track-by-loek-luijbregts.webp
+    alt: 'Three riders on a dirt track between bushes and golden fields in the Vosges.'
+    credit: 'by Loek Luijbregts'
+  - file: vosges-forest-singletrack-by-loek-luijbregts.webp
+    alt: 'A rider on a narrow path through tall spruce trees in the Vosges.'
+    credit: 'by Loek Luijbregts'
+  - file: vosges-valley-view-rider-by-loek-luijbregts.webp
+    alt: 'A rider on a gravel path above a green valley with a town in the distance.'
+    credit: 'by Loek Luijbregts'

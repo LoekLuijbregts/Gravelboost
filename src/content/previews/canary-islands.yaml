@@ -1,0 +1,14 @@
+name: 'Canary Islands'
+country: 'Spain'
+note: 'Volcanic gravel above the sea, on the GranGuanche'
+when: 'Ridden in 2021'
+photos:
+  - file: canary-islands-bike-beach-by-loek-luijbregts.webp
+    alt: 'A bikepacking bike on a rock above a turquoise sea and a curved beach.'
+    credit: 'by Loek Luijbregts'
+  - file: canary-islands-rider-volcanic-hill-by-matminelli-for-loek-luijbregts.webp
+    alt: 'A rider standing with a loaded gravel bike on dry ground below a volcanic hill.'
+    credit: 'by @matminelli for Loek Luijbregts'
+  - file: canary-islands-above-clouds-drone-by-loek-luijbregts.webp
+    alt: 'A drone view above a sea of clouds with a mountain top in the distance.'
+    credit: 'by Loek Luijbregts'

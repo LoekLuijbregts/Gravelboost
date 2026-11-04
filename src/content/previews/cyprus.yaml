@@ -1,0 +1,17 @@
+name: 'Cyprus'
+country: 'Cyprus'
+note: 'Troodos and the coast'
+when: 'Ridden in 2022'
+photos:
+  - file: cyprus-sunset-rider-by-loek-luijbregts.webp
+    alt: 'A rider in silhouette against a low orange sun on a dirt track in Cyprus.'
+    credit: 'by Loek Luijbregts'
+  - file: cyprus-troodos-rider-by-loek-luijbregts.webp
+    alt: 'A rider passing a stone wall and golden vines below rocky hills in Cyprus.'
+    credit: 'by Loek Luijbregts'
+  - file: cyprus-winding-track-by-loek-luijbregts.webp
+    alt: 'A sandy track winding through dry hills in Cyprus.'
+    credit: 'by Loek Luijbregts'
+  - file: cyprus-hill-track-rider-by-loek-luijbregts.webp
+    alt: 'A rider on a dirt track against a pointed hill and white clouds in Cyprus.'
+    credit: 'by Loek Luijbregts'

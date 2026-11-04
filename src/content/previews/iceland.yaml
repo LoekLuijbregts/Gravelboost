@@ -1,0 +1,17 @@
+name: 'Iceland'
+country: 'Iceland'
+note: 'Southern highlands'
+when: 'Ridden in 2021'
+photos:
+  - file: iceland-steam-riders-by-wout-van-de-donk-for-loek-luijbregts.webp
+    alt: 'Two riders on a dark slope with steam rising behind them in the Icelandic highlands.'
+    credit: 'by Wout van de Donk for Loek Luijbregts'
+  - file: iceland-crater-road-drone-by-loek-luijbregts.webp
+    alt: 'A drone view of two riders on a gravel road around a green and red volcanic hill beside a lake in Iceland.'
+    credit: 'by Loek Luijbregts'
+  - file: iceland-black-track-riders-by-wout-van-de-donk-for-loek-luijbregts.webp
+    alt: 'Two riders on a wide dark track towards a green mountain in Iceland.'
+    credit: 'by Wout van de Donk for Loek Luijbregts'
+  - file: iceland-snow-patches-rider-by-wout-van-de-donk-for-loek-luijbregts.webp
+    alt: 'A rider on dark gravel with snow patches on the hills behind in Iceland.'
+    credit: 'by Wout van de Donk for Loek Luijbregts'

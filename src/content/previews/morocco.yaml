@@ -1,0 +1,17 @@
+name: 'Morocco'
+country: 'Morocco'
+note: 'Fes and the Middle Atlas'
+when: 'Ridden in 2026'
+photos:
+  - file: morocco-atlas-stones-rider-by-youri-zwart-for-loek-luijbregts.webp
+    alt: 'A rider on a loaded gravel bike crossing a stony plateau in Morocco.'
+    credit: 'by Youri Zwart for Loek Luijbregts'
+  - file: morocco-fes-alley-donkey-by-youri-zwart-for-loek-luijbregts.webp
+    alt: 'A loaded donkey in a narrow yellow alley in Morocco.'
+    credit: 'by Youri Zwart for Loek Luijbregts'
+  - file: morocco-atlas-road-rider-by-youri-zwart-for-loek-luijbregts.webp
+    alt: 'A rider on an empty road through red and green hills in Morocco.'
+    credit: 'by Youri Zwart for Loek Luijbregts'
+  - file: morocco-sunset-road-rider-by-youri-zwart-for-loek-luijbregts.webp
+    alt: 'A rider against a low sun on a quiet road in Morocco.'
+    credit: 'by Youri Zwart for Loek Luijbregts'

@@ -1,19 +1,21 @@
 ---
-import { WORLD } from '../data/world';
+import { getCollection } from 'astro:content';
 import Photo from './Photo.astro';
+
+const ORDER = ['iceland', 'cappadocia', 'morocco', 'canary-islands', 'cyprus', 'vosges', 'sweden', 'girona', 'costa-blanca', 'scotland'];
+const previews = (await getCollection('previews')).sort((a, b) => ORDER.indexOf(a.id) - ORDER.indexOf(b.id));
 ---
 <section class="section" aria-labelledby="world-h">
   <div class="wrap">
-    <h2 id="world-h">Ridden, no guide yet</h2>
-    <p class="lead">We have been here. Tell us which guide you want next.</p>
+    <h2 id="world-h">More places we rode</h2>
+    <p class="lead">No guide yet, only photos. Tell us which one you want next.</p>
     <div class="tiles">
-      {WORLD.map((w) => (
-        <a class="tile" href={`/request-a-route/?place=${encodeURIComponent(w.place)}`}>
-          <div class="tile-img"><Photo set="world" photo={{ file: w.file, alt: w.alt, credit: w.credit }} ratio="card" caption={false} sizes="(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw" /></div>
-          <h3>{w.place}</h3>
-          <p class="tile-train">{w.note}</p>
-          <p class="tile-credit">{w.credit}</p>
-          <p class="tile-more">I want this guide</p>
+      {previews.map((w) => (
+        <a class="tile" href={`/places/${w.id}/`}>
+          <div class="tile-img"><Photo set={`places/${w.id}`} photo={w.data.photos[0]} ratio="card" caption={false} sizes="(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw" /><span class="tile-bike">No guide yet</span></div>
+          <h3>{w.data.name}</h3>
+          <p class="tile-train">{w.data.country} · {w.data.note}</p>
+          <p class="tile-credit">{w.data.photos[0].credit}</p>
         </a>
       ))}
     </div>
