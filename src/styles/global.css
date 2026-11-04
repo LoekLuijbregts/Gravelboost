@@ -253,3 +253,4 @@ input:focus, textarea:focus { border-color: var(--accent); }
   html { scroll-behavior: auto; }
   .tile-img img { transition: none; }
 }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
