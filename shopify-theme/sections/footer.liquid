@@ -1,0 +1,32 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="foot-claim">{{ settings.tagline | replace: '. ', '.<br>' }}</p>
+    <div class="foot-grid">
+      <div>
+        <h2>{{ section.settings.newsletter_heading }}</h2>
+        {%- form 'customer', class: 'inline-form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label class="visually-hidden" for="nl-email">Email</label>
+          <input id="nl-email" type="email" name="contact[email]" placeholder="you@example.com" required autocomplete="email">
+          <button class="btn" type="submit">Subscribe</button>
+          {%- if form.posted_successfully? -%}<p class="form-msg" role="status">Thanks. You are on the list.</p>{%- endif -%}
+          {%- if form.errors -%}<p class="form-msg" role="alert">{{ form.errors.messages.email | default: 'Please check your email address.' }}</p>{%- endif -%}
+        {%- endform -%}
+      </div>
+      <ul class="foot-links">
+        {%- for link in linklists[section.settings.menu].links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}
+        {%- for policy in shop.policies -%}<li><a href="{{ policy.url }}">{{ policy.title }}</a></li>{%- endfor -%}
+      </ul>
+    </div>
+    <p class="foot-small">{{ settings.footer_note }} &copy; {{ 'now' | date: '%Y' }}</p>
+  </div>
+</footer>
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "newsletter_heading", "label": "Newsletter heading", "default": "New routes by email" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+  ]
+}
+{% endschema %}

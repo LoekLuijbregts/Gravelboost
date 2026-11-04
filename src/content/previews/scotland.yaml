@@ -1,0 +1,17 @@
+name: 'West Highland Way'
+country: 'Scotland'
+note: 'On foot, not on the bike'
+when: 'Walked in 2022'
+photos:
+  - file: scotland-loch-house-drone-by-loek-luijbregts.webp
+    alt: 'A drone view of a white house among green trees on the shore of a dark Scottish loch.'
+    credit: 'by Loek Luijbregts'
+  - file: scotland-glen-walkers-by-loek-luijbregts.webp
+    alt: 'A small group of walkers on a path through a wide brown glen in Scotland.'
+    credit: 'by Loek Luijbregts'
+  - file: scotland-hill-path-drone-by-loek-luijbregts.webp
+    alt: 'A drone view of a path across a heather hillside in Scotland.'
+    credit: 'by Loek Luijbregts'
+  - file: scotland-loch-shore-drone-by-loek-luijbregts.webp
+    alt: 'A drone view across a dark loch to a wooded shore in Scotland.'
+    credit: 'by Loek Luijbregts'

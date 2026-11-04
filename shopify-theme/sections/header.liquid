@@ -1,0 +1,31 @@
+{%- assign overlay = false -%}
+{%- if template.name == 'index' and section.settings.overlay_home %}{% assign overlay = true %}{% endif -%}
+{%- if settings.announcement != blank -%}
+  <div class="announce">{% if settings.announcement_link != blank %}<a href="{{ settings.announcement_link }}">{{ settings.announcement }}</a>{% else %}{{ settings.announcement }}{% endif %}</div>
+{%- endif -%}
+<header class="site-header{% if overlay %} site-header--overlay{% endif %}">
+  <div class="wrap bar">
+    <a class="brand" href="{{ routes.root_url }}">{{ settings.brand_a }}<span>{{ settings.brand_b }}</span></a>
+    <nav class="nav-desktop" aria-label="Main">
+      {%- for link in linklists[section.settings.menu].links -%}
+        <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+    <a class="cart-link" href="{{ routes.cart_url }}" aria-label="{{ 'general.cart' | t }}">{{ 'general.cart' | t }} <span class="cart-count">{{ cart.item_count }}</span></a>
+    <details class="menu">
+      <summary aria-label="{{ 'general.menu' | t }}">{{ 'general.menu' | t }}</summary>
+      <nav aria-label="Main, mobile">
+        {%- for link in linklists[section.settings.menu].links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}
+      </nav>
+    </details>
+  </div>
+</header>
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "overlay_home", "label": "Overlay header on the home hero", "default": true }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,25 @@
+---
+import Photo from './Photo.astro';
+import { ACTIVITY_LABEL } from '../lib/site';
+
+interface Props { ride: Awaited<ReturnType<typeof import('../lib/rides').getRides>>[number] }
+const { ride: r } = Astro.props;
+---
+<a class="tile" href={r.href} data-ride data-bike={r.bike} data-km={r.km} data-level={r.level} data-station={r.stationKm ?? 99}>
+  <div class="tile-img">
+    <Photo set={r.set} photo={r.photo} ratio="card" caption={false} sizes="(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw" />
+    <span class="tile-bike">{ACTIVITY_LABEL[r.bike]}</span>
+  </div>
+  <h3>{r.title}</h3>
+  <ul class="tile-nums">
+    <li><strong>{r.km} km</strong></li>
+    <li>{r.ascent} m up</li>
+    <li>Level {r.level} of 5</li>
+    {r.time && <li>{r.time}</li>}
+  </ul>
+  {r.stationKm !== undefined && <p class="tile-train">{r.stationKm} km from {r.station} station</p>}
+  <p class="tile-tags">
+    {r.free ? <span class="tag tag--free">Free GPX</span> : r.buyable ? <span class="tag tag--example">GPX in pack</span> : <span class="tag tag--example">Pack coming soon</span>}
+    {r.paid && <span class="tag tag--paid">Commissioned</span>}
+  </p>
+</a>

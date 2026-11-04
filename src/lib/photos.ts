@@ -3,7 +3,7 @@ import path from 'node:path';
 
 export type Ratio = 'hero' | 'card' | 'portrait' | 'orig';
 const RATIOS: Record<Exclude<Ratio, 'orig'>, [number, number]> = { hero: [16, 9], card: [4, 3], portrait: [4, 5] };
-const WIDTHS = [480, 800, 1200, 1600, 2000];
+const WIDTHS = [640, 960, 1280, 1600, 2000, 2560];
 
 const cache = new Map<string, { width: number; height: number }>();
 
@@ -20,7 +20,7 @@ export async function dims(set: string, file: string) {
 function url(set: string, file: string, w: number, h: number | null, focus: string) {
   const src = `/photos/${set}/${file}`;
   if (import.meta.env.DEV) return src;
-  const params = new URLSearchParams({ url: src, w: String(w), fm: 'webp', q: '75' });
+  const params = new URLSearchParams({ url: src, w: String(w), fm: 'webp', q: '84' });
   if (h) {
     params.set('h', String(h));
     params.set('fit', 'cover');
@@ -40,6 +40,10 @@ export async function sources(set: string, file: string, ratio: Ratio, focus = '
   const mid = widths[Math.min(2, widths.length - 1)];
   const midH = r ? Math.round((mid * r[1]) / r[0]) : Math.round((mid * orig.height) / orig.width);
   return { srcset, src: url(set, file, mid, h(mid), focus), width: mid, height: midH };
+}
+
+export function fullSize(set: string, file: string) {
+  return url(set, file, 2560, null, 'center');
 }
 
 export function autoRatio(w: number, h: number): Ratio {

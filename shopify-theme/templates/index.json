@@ -1,0 +1,19 @@
+{ "sections": {
+ "hero": { "type": "hero", "settings": {} },
+ "marquee": { "type": "marquee", "settings": {} },
+ "shop": { "type": "featured-collection", "settings": { "heading": "Ride packs and tools", "limit": 6 } },
+ "panels": { "type": "panels", "blocks": {
+   "tilburg": { "type": "panel", "settings": { "asset": "panel-tilburg.webp", "alt": "A rider on a gravel track through heathland near Tilburg.", "eyebrow": "Netherlands · Arrive by train", "title": "Tilburg", "text": "Two loops from the station. Then a city with plenty to do when the bike is parked.", "cta": "Get the Tilburg Ride Pack", "link": "shopify://products/tilburg-ride-pack-1" } },
+   "towers": { "type": "panel", "settings": { "asset": "panel-towers.webp", "alt": "Riders on a track beside a lookout tower.", "eyebrow": "Netherlands · Gravel and road", "title": "All Along The Watchtowers", "text": "Five loops around Tilburg past five lookout towers.", "facts": "Routes: 5", "cta": "See the packs", "link": "shopify://collections/all" } },
+   "luxembourg": { "type": "panel", "settings": { "asset": "panel-luxembourg.webp", "alt": "A drone view of a red earth path through green fields in southern Luxembourg.", "eyebrow": "Luxembourg · Destination guide", "title": "Luxembourg", "text": "Ardennes, Mullerthal and the red-earth south. Public transport is free, so no car needed.", "cta": "Read more", "link": "shopify://collections/all" } }
+ }, "block_order": ["tilburg", "towers", "luxembourg"], "settings": {} },
+ "statement": { "type": "statement", "settings": {} },
+ "rail": { "type": "rail", "blocks": {
+   "a": { "type": "photo", "settings": { "asset": "rail-cappadocia.webp", "alt": "A rider on a dusty track with hot air balloons rising behind.", "title": "Cappadocia" } },
+   "b": { "type": "photo", "settings": { "asset": "rail-scotland.webp", "alt": "A drone view of a rider beside a loch in Scotland.", "title": "Scotland" } },
+   "c": { "type": "photo", "settings": { "asset": "rail-cyprus.webp", "alt": "A rider silhouetted against a Cyprus sunset.", "title": "Cyprus" } },
+   "d": { "type": "photo", "settings": { "asset": "rail-canaria.webp", "alt": "A bike leaning on a Gran Canaria beach.", "title": "Gran Canaria" } },
+   "e": { "type": "photo", "settings": { "asset": "rail-lake.webp", "alt": "A rider on a lake shore near Tilburg.", "title": "Tilburg" } }
+ }, "block_order": ["a", "b", "c", "d", "e"], "settings": {} },
+ "about": { "type": "about", "settings": { "link": "shopify://pages/contact" } }
+}, "order": ["hero", "marquee", "shop", "panels", "statement", "rail", "about"] }

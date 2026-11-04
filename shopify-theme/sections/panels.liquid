@@ -1,0 +1,42 @@
+<div class="panels" id="rides">
+  {%- for block in section.blocks -%}
+    <a class="panel" href="{{ block.settings.link | default: routes.collections_url }}" {{ block.shopify_attributes }}>
+      {% render 'pic', image: block.settings.image, asset: block.settings.asset, alt: block.settings.alt, sizes: '100vw' %}
+      <div class="panel-copy"><div class="wrap">
+        <p class="eyebrow eyebrow--light">{{ block.settings.eyebrow }}</p>
+        <h3>{{ block.settings.title }}</h3>
+        <p class="panel-text">{{ block.settings.text }}</p>
+        {%- if block.settings.facts != blank -%}
+          <ul class="panel-facts">
+            {%- assign facts = block.settings.facts | split: ',' -%}
+            {%- for f in facts -%}{%- assign kv = f | split: ':' -%}<li><span>{{ kv[0] | strip }}</span><strong>{{ kv[1] | strip }}</strong></li>{%- endfor -%}
+          </ul>
+        {%- endif -%}
+        <span class="link-go link-go--light">{{ block.settings.cta }}</span>
+      </div></div>
+    </a>
+  {%- endfor -%}
+</div>
+{% schema %}
+{
+  "name": "Journey panels",
+  "blocks": [
+    {
+      "type": "panel", "name": "Panel",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "asset", "label": "Bundled image file if no image is picked", "default": "panel-tilburg.webp" },
+        { "type": "text", "id": "alt", "label": "Image description" },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "text", "label": "Text" },
+        { "type": "text", "id": "facts", "label": "Facts, as Label: value, comma separated" },
+        { "type": "text", "id": "cta", "label": "Link label", "default": "See the ride pack" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "Journey panels" }]
+}
+{% endschema %}

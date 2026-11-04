@@ -1,0 +1,17 @@
+name: 'Costa Blanca'
+country: 'Spain'
+note: 'Calpe, mountains and the sea'
+when: 'Ridden in 2022'
+photos:
+  - file: costa-blanca-sunset-riders-by-loek-luijbregts.webp
+    alt: 'Three riders on a dirt road at sunset with rocky mountains behind on the Costa Blanca.'
+    credit: 'by Loek Luijbregts'
+  - file: costa-blanca-sea-riders-by-loek-luijbregts.webp
+    alt: 'Three riders on a coast road with a bright blue sea behind them.'
+    credit: 'by Loek Luijbregts'
+  - file: costa-blanca-orange-fields-drone-by-loek-luijbregts.webp
+    alt: 'A drone view straight down on a road between orange fields.'
+    credit: 'by Loek Luijbregts'
+  - file: costa-blanca-valley-climb-by-loek-luijbregts.webp
+    alt: 'A group of riders climbing a road with a wide valley and mountains behind.'
+    credit: 'by Loek Luijbregts'

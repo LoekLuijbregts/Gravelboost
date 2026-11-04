@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Finder from '../../components/Finder.astro';
+import RouteMap from '../../components/RouteMap.astro';
+
+const journeys = await getCollection('journeys');
+const loops = journeys.flatMap((j) => j.data.loops.map((l) => ({ id: `${j.id}-${l.id}`, name: j.data.shortName ? `${j.data.shortName}: ${l.name}` : l.name, gpx: l.gpx })));
+---
+<Layout title="All rides" description="Find a gravel, mountain bike or road ride by distance, effort and how close it is to a train station. Every route is ridden first." path="/rides/" crumbs={[{ name: 'Rides', href: '/rides/' }]}>
+  <section class="section section--tight">
+    <div class="wrap">
+      <h1 class="page-title">Find your ride</h1>
+      <p class="lead">Every route is ridden first. Filter by bike, distance, effort and train.</p>
+      <h2 class="vh">Rides</h2>
+      <Finder />
+    </div>
+  </section>
+  <section class="section" style="padding-top:0" aria-labelledby="map-h">
+    <div class="wrap">
+      <h2 id="map-h">All routes on the map</h2>
+      <RouteMap loops={loops} />
+    </div>
+  </section>
+</Layout>

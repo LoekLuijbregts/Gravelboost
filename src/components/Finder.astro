@@ -1,0 +1,37 @@
+---
+import RideTile from './RideTile.astro';
+import { getRides } from '../lib/rides';
+
+const rides = await getRides();
+const groups = [
+  { key: 'bike', label: 'Bike', options: [['gravel', 'Gravel'], ['mtb', 'Mountain bike'], ['road', 'Road']] },
+  { key: 'length', label: 'Distance', options: [['short', 'Under 70 km'], ['mid', '70 to 100 km'], ['long', 'Over 100 km']] },
+  { key: 'level', label: 'Effort', options: [['easier', 'Level 1 to 2'], ['harder', 'Level 3 and up']] },
+  { key: 'train', label: 'By train', options: [['near', 'Under 1 km from a station']] },
+];
+---
+<div class="finder" data-finder>
+  <div class="filters" data-controls>
+    {groups.map((g) => (
+      <div class="filter-group" role="group" aria-label={g.label}>
+        <span class="filter-label">{g.label}</span>
+        {g.options.map(([v, t]) => <button type="button" class="chip" data-filter={g.key} data-value={v} aria-pressed="false">{t}</button>)}
+      </div>
+    ))}
+    <div class="filter-bar">
+      <p class="count" role="status" data-count data-msg-count="{n} rides">{rides.length} rides</p>
+      <button type="button" class="linkbtn" data-clear hidden>Clear filters</button>
+      <label class="sort">Sort
+        <select data-sort>
+          <option value="km">Shortest first</option>
+          <option value="level">Easiest first</option>
+          <option value="station">Closest to a station</option>
+        </select>
+      </label>
+    </div>
+  </div>
+  <div class="tiles">
+    {rides.map((r) => <RideTile ride={r} />)}
+  </div>
+  <p class="empty" data-empty hidden>No ride fits all of that yet. Clear a filter, or <a href="/request-a-route/">tell us what you are looking for</a>.</p>
+</div>

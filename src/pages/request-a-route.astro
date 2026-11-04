@@ -20,7 +20,7 @@ const preload = await heroPreload('watchtowers', heroPhoto.file);
         <div><label for="r-name">Your name</label><input id="r-name" name="firstname" autocomplete="given-name" /></div>
         <div><label for="r-email">Email</label><input id="r-email" name="email" type="email" required autocomplete="email" /></div>
         <div><label for="r-org">Region or organisation (optional)</label><input id="r-org" name="company" autocomplete="organization" /></div>
-        <div><label for="r-msg">Which route or region?</label><textarea id="r-msg" name="message" rows="5" required></textarea></div>
+        <div><label for="r-msg">Which route or region?</label><textarea id="r-msg" name="message" rows="5" required data-msg-prefill="I would love a guide for {place}."></textarea></div>
         <div><button class="btn" type="submit">Send request</button></div>
         <p class="status" role="status"></p>
       </form>

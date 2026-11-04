@@ -1,0 +1,46 @@
+{%- capture fb -%}{% render 'fallback-asset', product: product %}{%- endcapture -%}
+{%- assign current = product.selected_or_first_available_variant -%}
+<div class="wrap pdp">
+  <div class="pdp-media">
+    {%- if product.featured_image != blank -%}
+      {{ product.featured_image | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(min-width: 900px) 55vw, 100vw', loading: 'eager', fetchpriority: 'high', data-main-image: true }}
+      {%- if product.images.size > 1 -%}
+        <div class="pdp-thumbs">
+          {%- for image in product.images -%}
+            <button type="button" data-thumb data-src="{{ image | image_url: width: 1600 }}" data-srcset="{{ image | image_url: width: 900 }} 900w, {{ image | image_url: width: 1600 }} 1600w" data-alt="{{ image.alt | escape }}"{% if forloop.first %} aria-current="true"{% endif %} aria-label="Image {{ forloop.index }}">{{ image | image_url: width: 200 | image_tag: alt: '' }}</button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <img data-main-image src="{{ fb | strip | asset_url }}" alt="" width="1400" height="933">
+    {%- endif -%}
+  </div>
+  <div class="pdp-info">
+    {% if product.type != blank %}<p class="eyebrow">{{ product.type }}</p>{% endif %}
+    <h1>{{ product.title }}</h1>
+    <p class="price">{% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}{{ current.price | money }}</p>
+    {%- form 'product', product, class: 'pdp-form' -%}
+      {%- if product.has_only_default_variant -%}
+        <input type="hidden" name="id" value="{{ current.id }}">
+      {%- else -%}
+        <div>
+          <label for="variant">{{ product.options.first }}</label>
+          <select id="variant" name="id">
+            {%- for v in product.variants -%}<option value="{{ v.id }}"{% if v == current %} selected{% endif %}{% unless v.available %} disabled{% endunless %}>{{ v.title }} — {{ v.price | money }}</option>{%- endfor -%}
+          </select>
+        </div>
+      {%- endif -%}
+      <button class="btn btn--block" type="submit"{% unless current.available %} disabled{% endunless %}>{% if current.available %}Add to cart{% else %}Sold out{% endif %}</button>
+      {{ form | payment_button }}
+    {%- endform -%}
+    <ul class="trust">
+      {%- if product.type contains 'igital' -%}
+        <li>Instant digital delivery after checkout</li>
+      {%- endif -%}
+      <li>Secure checkout with Shopify</li>
+      <li>Questions? <a href="mailto:{{ shop.email }}">{{ shop.email }}</a></li>
+    </ul>
+    <div class="prose">{{ product.description }}</div>
+  </div>
+</div>
+{% schema %}{ "name": "Product" }{% endschema %}

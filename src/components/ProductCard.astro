@@ -11,7 +11,7 @@ const { data: p, id } = product;
 const perks = SHOW_TODOS ? p.partnerPerks : p.partnerPerks.filter((x) => !isOpen(x.partner));
 ---
 <article class="product" id={`pack-${id}`}>
-  {image && <Photo set={image.set} photo={image.photo} ratio="card" caption={false} sizes="(min-width: 900px) 360px, 100vw" />}
+  {image && <Photo set={image.set} photo={image.photo} ratio="card" caption={false} sizes="(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw" />}
   <div class="product-body">
     <p class="eyebrow" style="margin:0">{p.kind === 'bundle' ? 'Bundle' : 'Pack'}</p>
     <h3>{p.name}</h3>

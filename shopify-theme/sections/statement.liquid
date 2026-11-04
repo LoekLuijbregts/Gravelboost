@@ -1,0 +1,19 @@
+<section class="statement">
+  {% render 'pic', image: section.settings.image, asset: 'statement-crater.webp', alt: section.settings.alt, sizes: '100vw' %}
+  <div class="statement-copy"><div class="wrap">
+    <h2>{{ section.settings.heading }}</h2>
+    <p>{{ section.settings.text }}</p>
+  </div></div>
+</section>
+{% schema %}
+{
+  "name": "Photo statement",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "alt", "label": "Image description", "default": "A drone view of riders on a track beside a deep blue lake in a red volcanic crater in Iceland." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Not a list of routes. A rider's honest account." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Every guide is built from a ride that actually happened. Where to sleep, what the gravel is really like, what you need to bring. The things no travel blog tells you." }
+  ],
+  "presets": [{ "name": "Photo statement" }]
+}
+{% endschema %}

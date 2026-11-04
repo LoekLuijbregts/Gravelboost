@@ -1,0 +1,19 @@
+---
+import Photo from './Photo.astro';
+
+interface Props {
+  href: string;
+  set: string;
+  photo: { file: string; alt: string; credit: string; focus?: string };
+  eyebrow: string;
+  title: string;
+  text: string;
+}
+const { href, set, photo, eyebrow, title, text } = Astro.props;
+---
+<a class="tile" href={href}>
+  <div class="tile-img"><Photo set={set} photo={photo} ratio="card" caption={false} sizes="(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw" /></div>
+  <p class="eyebrow" style="margin:.2rem 0 0">{eyebrow}</p>
+  <h3>{title}</h3>
+  <p class="tile-text">{text}</p>
+</a>

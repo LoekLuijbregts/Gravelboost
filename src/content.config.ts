@@ -51,6 +51,8 @@ const loop = z.object({
   name: z.string(),
   activity: z.enum(['gravel', 'mtb', 'road']),
   gpx: z.string().optional(),
+  time: z.string().optional(),
+  stationKm: z.number().optional(),
   level: z.number().int().min(1).max(5).optional(),
   surface: z.string(),
   summary: z.string(),
@@ -69,6 +71,7 @@ const journeys = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/journeys' }),
   schema: z.object({
     title: z.string(),
+    shortName: z.string().optional(),
     description: z.string(),
     destination: reference('destinations'),
     days: z.string(),
@@ -168,4 +171,15 @@ const places = defineCollection({
   }),
 });
 
-export const collections = { journeys, destinations, products, events, places };
+const previews = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/previews' }),
+  schema: z.object({
+    name: z.string(),
+    country: z.string(),
+    note: z.string(),
+    when: z.string(),
+    photos: z.array(photo).min(1),
+  }),
+});
+
+export const collections = { journeys, destinations, products, events, places, previews };

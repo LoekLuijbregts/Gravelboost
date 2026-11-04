@@ -1,5 +1,5 @@
 [
-  { "name": "theme_info", "theme_name": "GravelBoost", "theme_version": "1.0.0", "theme_author": "Cycling Incubators", "theme_documentation_url": "https://gravelboost.com", "theme_support_url": "mailto:loek@cyclingincubators.com" },
+  { "name": "theme_info", "theme_name": "GravelBoost", "theme_version": "1.0.0", "theme_author": "Cycling Incubators", "theme_documentation_url": "https://gravelboost.com", "theme_support_url": "https://cyclingincubators.com" },
   {
     "name": "Brand",
     "settings": [

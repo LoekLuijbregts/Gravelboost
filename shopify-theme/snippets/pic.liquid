@@ -1,0 +1,6 @@
+{%- comment -%} image: Shopify image object or blank; asset: fallback theme asset file; alt; sizes; eager {%- endcomment -%}
+{%- if image != blank -%}
+  {{ image | image_url: width: 1600 | image_tag: widths: '400, 800, 1200, 1600, 2000', sizes: sizes | default: '100vw', alt: alt | default: image.alt, loading: eager | default: 'lazy' }}
+{%- else -%}
+  <img src="{{ asset | asset_url }}" alt="{{ alt | escape }}" width="1400" height="933" loading="{{ eager | default: 'lazy' }}" decoding="async">
+{%- endif -%}
