@@ -101,6 +101,10 @@ Nothing open.
 
 Nothing open.
 
+## /rides/
+
+Nothing open.
+
 ## /start-here/
 
 - [CHECK this scale]

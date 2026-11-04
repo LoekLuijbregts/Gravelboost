@@ -14,8 +14,8 @@ import Provenance from './Provenance.astro';
 import { getGpx } from '../lib/gpx';
 import { ACTIVITY_LABEL } from '../lib/site';
 
-interface Props { journey: CollectionEntry<'journeys'>; video?: string }
-const { journey, video } = Astro.props;
+interface Props { journey: CollectionEntry<'journeys'> }
+const { journey } = Astro.props;
 const j = journey.data;
 const { Content } = await render(journey);
 const products = await getEntries(j.products);
@@ -29,47 +29,24 @@ const gpx = j.loops.map((l) => getGpx(l.gpx)).filter((g) => g !== null);
 const range = (a: number[], unit: string) => (Math.min(...a) === Math.max(...a) ? `${a[0]} ${unit}` : `${Math.min(...a)} to ${Math.max(...a)} ${unit}`);
 const levels = j.loops.map((l) => l.level ?? j.level);
 const activities = [...new Set(j.loops.map((l) => ACTIVITY_LABEL[l.activity]))].join(' and ');
-const many = j.loops.length > 2;
 const packImages = j.photos.filter((p) => !j.loops.some((l) => l.cover === p.file)).slice(1);
 const finish = j.end.name !== j.start.name;
 ---
-<Hero set={j.photoSet} photo={hero} video={video}>
+<Hero set={j.photoSet} photo={hero}>
   <p class="eyebrow eyebrow--light">{destination?.data.name}{j.routeNote ? ` · ${j.routeNote}` : ''}</p>
   <h1>{j.title}</h1>
   {j.provenance.paid && <p style="margin:0"><span class="tag tag--paid">Commissioned route</span></p>}
 </Hero>
 
-<div class="band">
-  <div class="wrap">
-    {many ? (
-      <ul class="stats">
-        <li><span class="k">Routes</span><span class="v">{j.loops.length}</span></li>
-        <li><span class="k">Distance</span><span class="v">{range(gpx.map((g) => g.distanceKm), 'km')}</span></li>
-        <li><span class="k">Climbing</span><span class="v">{range(gpx.map((g) => g.ascentM), 'm')}</span></li>
-        <li><span class="k">Time</span><span class="v">{j.days}</span></li>
-        <li><span class="k">Surface</span><span class="v">{activities}</span></li>
-        <li><span class="k">Adventure level</span><span class="v">{range(levels, 'of 5')}</span></li>
-      </ul>
-    ) : (
-      <div class="band-loops">
-        {j.loops.map((l) => {
-          const g = getGpx(l.gpx);
-          return (
-            <div>
-              <h2>{l.name}</h2>
-              <ul class="stats">
-                <li><span class="k">Distance</span><span class="v">{g?.distanceKm} km</span></li>
-                <li><span class="k">Climbing</span><span class="v">{g?.ascentM} m</span></li>
-                <li><span class="k">Time</span><span class="v">{j.days}</span></li>
-                <li><span class="k">Level</span><span class="v">{l.level ?? j.level} of 5</span></li>
-                <li class="wide"><span class="k">Surface</span><span class="v v--text">{l.surface}</span></li>
-              </ul>
-            </div>
-          );
-        })}
-      </div>
-    )}
-  </div>
+<div class="summary">
+  <ul class="wrap stats">
+    <li><span class="k">{j.loops.length > 1 ? 'Routes' : 'Route'}</span><span class="v">{j.loops.length}</span></li>
+    <li><span class="k">Distance</span><span class="v">{range(gpx.map((g) => g.distanceKm), 'km')}</span></li>
+    <li><span class="k">Climbing</span><span class="v">{range(gpx.map((g) => g.ascentM), 'm')}</span></li>
+    <li><span class="k">Time</span><span class="v">{j.days}</span></li>
+    <li><span class="k">Surface</span><span class="v">{activities}</span></li>
+    <li><span class="k">Adventure level</span><span class="v">{range(levels, 'of 5')}</span></li>
+  </ul>
 </div>
 
 <div class="actions">
@@ -80,34 +57,31 @@ const finish = j.end.name !== j.start.name;
       : <a class="btn btn--ghost" href="#packs" data-event="gpx_click" data-label={journey.id}>GPX (in pack)</a>}
     <a class="btn" href="#packs" data-event="pack_click" data-label={journey.id}>Offline guide (in pack)</a>
     <button class="btn btn--ghost" type="button" data-share data-msg-copied="Link copied. Paste it in a message to your phone.">Send to phone</button>
-    <a class="btn btn--green" href="/request-a-route/">Plan a trip</a>
+    <a class="btn btn--ghost" href="/request-a-route/">Plan a trip</a>
   </div>
   <p class="wrap status" id="share-status" role="status"></p>
 </div>
 
-<section class="section" aria-labelledby="map-h">
+<section class="section" aria-labelledby="routes-h">
   <div class="wrap">
-    <h2 id="map-h">The route{j.loops.length > 1 ? 's' : ''}</h2>
-    <RouteMap loops={j.loops} />
-  </div>
-  <div class="loops">
-    {j.loops.map((l, i) => {
-      const cover = coverFor(l.cover);
-      const g = getGpx(l.gpx);
-      const token = l.komootTourId ? komootToken(l.komootTourId) : '';
-      return (
-        <article class="loop" id={`loop-${l.id}`}>
-          {cover && <Photo set={j.photoSet} photo={cover} ratio="card" caption={false} sizes="(min-width: 900px) 50vw, 100vw" />}
-          <div class="loop-body">
-            <p class="eyebrow" style="margin:0"><i class="dot" style={`background:${COLORS[i % COLORS.length]}`}></i>{ACTIVITY_LABEL[l.activity]}</p>
-            <h3>{l.name}</h3>
-            <ul class="loop-nums">
-              <li><strong>{g?.distanceKm}</strong> km</li>
-              <li><strong>{g?.ascentM}</strong> m up</li>
-              <li>level <strong>{l.level ?? j.level}</strong>/5</li>
+    <h2 id="routes-h">Choose your route</h2>
+    <div class="tiles">
+      {j.loops.map((l, i) => {
+        const cover = coverFor(l.cover);
+        const g = getGpx(l.gpx);
+        const token = l.komootTourId ? komootToken(l.komootTourId) : '';
+        return (
+          <article class="tile tile--route" id={`loop-${l.id}`}>
+            {cover && <div class="tile-img"><Photo set={j.photoSet} photo={cover} ratio="card" caption={false} sizes="(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw" /><span class="tile-bike">{ACTIVITY_LABEL[l.activity]}</span></div>}
+            <h3><i class="dot" style={`background:${COLORS[i % COLORS.length]}`}></i>{l.name}</h3>
+            <ul class="tile-nums">
+              <li><strong>{g?.distanceKm} km</strong></li>
+              <li>{g?.ascentM} m up</li>
+              <li>Level {l.level ?? j.level} of 5</li>
+              {l.time && <li>{l.time}</li>}
             </ul>
-            <p class="muted" style="margin:0">{l.surface}</p>
-            <p style="margin:0">{l.summary}</p>
+            <p class="tile-train">{l.surface}</p>
+            <p class="tile-text">{l.summary}</p>
             <Elevation gpx={l.gpx} name={l.name} color={COLORS[i % COLORS.length]} />
             <div class="btn-row">
               {l.freeGpxUrl
@@ -115,21 +89,22 @@ const finish = j.end.name !== j.start.name;
                 : <a class="link-go" href="#packs" data-event="gpx_click" data-label={l.id}>GPX in the pack</a>}
               {token && (
                 <div class="komoot" data-komoot={l.komootTourId} data-token={token} data-title={`${l.name} on Komoot`}>
-                  <button class="btn btn--ghost" type="button">Show on Komoot</button>
+                  <button class="linkbtn" type="button">Show on Komoot</button>
                 </div>
               )}
             </div>
-          </div>
-        </article>
-      );
-    })}
+          </article>
+        );
+      })}
+    </div>
+    <div style="margin-top:2.4rem"><RouteMap loops={j.loops} /></div>
   </div>
 </section>
 
-<section class="section section--dark" id="packs" aria-labelledby="packs-h">
+<section class="section section--white" id="packs" aria-labelledby="packs-h">
   <div class="wrap">
     <h2 id="packs-h">Take it with you</h2>
-    <div class="grid">{products.map((p, i) => <ProductCard product={p} image={packImages[i] ? { set: j.photoSet, photo: packImages[i] } : undefined} />)}</div>
+    <div class="tiles">{products.map((p, i) => <ProductCard product={p} image={packImages[i] ? { set: j.photoSet, photo: packImages[i] } : undefined} />)}</div>
   </div>
 </section>
 
@@ -151,7 +126,6 @@ const finish = j.end.name !== j.start.name;
         <div><dt>Start</dt><dd>{j.start.name}</dd></div>
         {finish && <div><dt>Finish</dt><dd>{j.end.name}</dd></div>}
         {j.start.station && <div><dt>Train station</dt><dd>{j.start.station}</dd></div>}
-        <div><dt>Time</dt><dd>{j.days}</dd></div>
       </dl>
     </aside>
   </div>

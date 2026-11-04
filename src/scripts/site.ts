@@ -165,26 +165,91 @@ document.querySelectorAll<HTMLFormElement>('form[data-form]').forEach((form) => 
   });
 });
 
-function startHeroVideo() {
-  const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
-  if (!video) return;
-  const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches || conn?.saveData) return;
-  video.src = (innerWidth < 700 ? video.dataset.heroVideoSm : video.dataset.heroVideo) ?? '';
-  video.addEventListener('playing', () => video.classList.add('is-playing'), { once: true });
-  video.play().catch(() => {});
-  const toggle = document.querySelector<HTMLButtonElement>('[data-video-toggle]');
-  if (!toggle) return;
-  toggle.hidden = false;
-  toggle.addEventListener('click', () => {
-    if (video.paused) {
-      video.play().catch(() => {});
-      toggle.textContent = toggle.dataset.labelPause ?? 'Pause video';
-    } else {
-      video.pause();
-      toggle.textContent = toggle.dataset.labelPlay ?? 'Play video';
+const finder = document.querySelector<HTMLElement>('[data-finder]');
+if (finder) {
+  const tiles = [...finder.querySelectorAll<HTMLElement>('[data-ride]')];
+  const grid = tiles[0]?.parentElement;
+  const count = finder.querySelector<HTMLElement>('[data-count]');
+  const empty = finder.querySelector<HTMLElement>('[data-empty]');
+  const clear = finder.querySelector<HTMLButtonElement>('[data-clear]');
+  const sort = finder.querySelector<HTMLSelectElement>('[data-sort]');
+  const params = new URLSearchParams(location.search);
+  const state: Record<string, string> = {};
+  for (const k of ['bike', 'length', 'level', 'train']) {
+    const v = params.get(k);
+    if (v) state[k] = v;
+  }
+  finder.querySelector<HTMLElement>('[data-controls]')?.removeAttribute('hidden');
+  const matches = (t: HTMLElement) => {
+    const km = Number(t.dataset.km);
+    const level = Number(t.dataset.level);
+    if (state.bike && t.dataset.bike !== state.bike) return false;
+    if (state.length === 'short' && km >= 70) return false;
+    if (state.length === 'mid' && (km < 70 || km > 100)) return false;
+    if (state.length === 'long' && km <= 100) return false;
+    if (state.level === 'easier' && level > 2) return false;
+    if (state.level === 'harder' && level < 3) return false;
+    if (state.train && Number(t.dataset.station) >= 1) return false;
+    return true;
+  };
+  const render = () => {
+    let shown = 0;
+    for (const t of tiles) {
+      t.hidden = !matches(t);
+      if (!t.hidden) shown++;
     }
+    finder.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((b) => {
+      b.setAttribute('aria-pressed', String(state[b.dataset.filter ?? ''] === b.dataset.value));
+    });
+    if (count) count.textContent = (count.dataset.msgCount ?? '{n} rides').replace('{n}', String(shown));
+    if (empty) empty.hidden = shown > 0;
+    if (clear) clear.hidden = Object.keys(state).length === 0;
+    const q = new URLSearchParams(state).toString();
+    history.replaceState(null, '', q ? `?${q}${location.hash}` : location.pathname + location.hash);
+  };
+  finder.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const k = b.dataset.filter ?? '';
+      if (state[k] === b.dataset.value) delete state[k];
+      else state[k] = b.dataset.value ?? '';
+      render();
+    }),
+  );
+  clear?.addEventListener('click', () => {
+    Object.keys(state).forEach((k) => delete state[k]);
+    render();
+  });
+  sort?.addEventListener('change', () => {
+    const key = sort.value === 'level' ? 'level' : sort.value === 'station' ? 'station' : 'km';
+    [...tiles]
+      .sort((a, b) => Number(a.dataset[key]) - Number(b.dataset[key]) || Number(a.dataset.km) - Number(b.dataset.km))
+      .forEach((t) => grid?.appendChild(t));
+  });
+  render();
+}
+
+const lightbox = document.getElementById('lightbox') as HTMLDialogElement | null;
+if (lightbox) {
+  const img = lightbox.querySelector('img');
+  const cap = lightbox.querySelector('.lightbox-cap');
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element).closest<HTMLAnchorElement>('[data-zoom]');
+    if (!a || !img) return;
+    e.preventDefault();
+    const thumb = a.querySelector('img');
+    img.src = a.href;
+    img.alt = thumb?.alt ?? '';
+    if (cap) cap.textContent = a.closest('figure')?.querySelector('figcaption')?.textContent ?? '';
+    lightbox.showModal();
+  });
+  lightbox.addEventListener('click', (e) => {
+    const t = e.target as Element;
+    if (t === lightbox || t.closest('[data-lightbox-close]')) lightbox.close();
   });
 }
-if (document.readyState === 'complete') startHeroVideo();
-else addEventListener('load', () => setTimeout(startHeroVideo, 300), { once: true });
+
+const place = new URLSearchParams(location.search).get('place');
+const message = document.querySelector<HTMLTextAreaElement>('textarea[name=message]');
+if (place && message && /^[\p{L} -]{2,40}$/u.test(place)) {
+  message.value = (message.dataset.msgPrefill ?? 'I would love a guide for {place}.').replace('{place}', place);
+}

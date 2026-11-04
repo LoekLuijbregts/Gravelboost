@@ -1,25 +1,25 @@
 ---
 import { getCollection, getEntry } from 'astro:content';
-import { heroPreload } from '../../lib/photos';
 import Layout from '../../layouts/Layout.astro';
-import Hero from '../../components/Hero.astro';
-import Panel from '../../components/Panel.astro';
-import Rail from '../../components/Rail.astro';
+import PlaceTile from '../../components/PlaceTile.astro';
+import WorldTiles from '../../components/WorldTiles.astro';
 
 const destinations = await getCollection('destinations');
 const towers = (await getEntry('journeys', 'all-along-the-watchtowers'))!;
 const lux = destinations.find((d) => d.id === 'luxembourg')!;
 const til = destinations.find((d) => d.id === 'tilburg')!;
-const heroPhoto = { file: 'gran-canaria-above-clouds-drone-by-loek-luijbregts.webp', alt: 'A drone view above a sea of clouds with a mountain top in the distance on Gran Canaria.', credit: 'by Loek Luijbregts' };
-const preload = await heroPreload('world', heroPhoto.file);
 ---
-<Layout preload={preload} title="Destinations" description="Where we ride: Luxembourg, Tilburg and the Watchtowers routes. Accessible adventures across Europe." path="/destinations/" crumbs={[{ name: 'Destinations', href: '/destinations/' }]}>
-  <Hero size="short" set="world" photo={heroPhoto}>
-    <h1>Destinations</h1>
-    <p class="lede" style="margin:0">Each one is ridden first. Pick a place, then pick a ride.</p>
-  </Hero>
-  <Panel href={lux.data.href} set={lux.data.photoSet} photo={lux.data.photos[9]} eyebrow={lux.data.country} title={lux.data.name} text={lux.data.description} cta="Read the guide" />
-  <Panel href={til.data.href} set={til.data.photoSet} photo={til.data.photos[0]} eyebrow={til.data.country} title={til.data.name} text={til.data.description} cta="See the journey" />
-  <Panel href="/bundles/all-along-the-watchtowers/" set={towers.data.photoSet} photo={towers.data.photos[0]} eyebrow="Netherlands" title="All Along The Watchtowers" text={towers.data.description} cta="See the routes" />
-  <Rail />
+<Layout title="Destinations" description="Where we ride: Luxembourg, Tilburg and the Watchtowers routes. Accessible adventures across Europe." path="/destinations/" crumbs={[{ name: 'Destinations', href: '/destinations/' }]}>
+  <section class="section section--tight">
+    <div class="wrap">
+      <h1 class="page-title">Destinations</h1>
+      <p class="lead">Each one is ridden first. Pick a place, then pick a ride.</p>
+      <div class="tiles">
+        <PlaceTile href={lux.data.href} set={lux.data.photoSet} photo={lux.data.photos[9]} eyebrow="Luxembourg · Guide" title={lux.data.name} text={lux.data.description} />
+        <PlaceTile href={til.data.href} set={til.data.photoSet} photo={til.data.photos[0]} eyebrow="Netherlands · Two loops" title={til.data.name} text={til.data.description} />
+        <PlaceTile href="/bundles/all-along-the-watchtowers/" set={towers.data.photoSet} photo={towers.data.photos[0]} eyebrow="Netherlands · Five loops" title="All Along The Watchtowers" text={towers.data.description} />
+      </div>
+    </div>
+  </section>
+  <WorldTiles />
 </Layout>

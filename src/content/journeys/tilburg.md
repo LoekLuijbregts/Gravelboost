@@ -18,6 +18,8 @@ loops:
     name: Tilburg Gravel Highlights
     activity: gravel
     gpx: tilburg-gravel-highlights
+    time: 3-4 h
+    stationKm: 0.1
     level: 2
     surface: Mostly gravel, some paved
     summary: Gravel paths around the city, with stops at the Koningshoeven abbey and its brewery terrace, the Leijpark and the burial mounds of the Regte Heide.
@@ -28,6 +30,8 @@ loops:
     name: Tilburg Mountainbike Highlights
     activity: mtb
     gpx: tilburg-mtb-highlights
+    time: 5-6 h
+    stationKm: 0.4
     level: 3
     surface: Mostly mountain bike terrain, some paved
     summary: Singletrack and sandy trails in the woods around the city, finishing at the Kempentoren. [CHECK area names]

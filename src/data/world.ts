@@ -7,4 +7,3 @@ export const WORLD = [
   { place: 'Scotland', note: 'West Highland Way, on foot', file: 'scotland-loch-drone-by-loek-luijbregts.webp', alt: 'A drone view of a white house among green trees on the shore of a dark Scottish loch.', credit: 'by Loek Luijbregts' },
 ];
 
-export const MARQUEE = ['Iceland', 'Cappadocia', 'Morocco', 'Gran Canaria', 'Cyprus', 'Scotland', 'Luxembourg', 'Tilburg'];

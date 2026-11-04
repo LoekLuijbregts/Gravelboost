@@ -1,0 +1,20 @@
+<div class="wrap">
+  <div class="coll-head">
+    <h1 class="display">Search</h1>
+    <form action="{{ routes.search_url }}" method="get" class="inline-form" role="search">
+      <label class="visually-hidden" for="q">Search</label>
+      <input id="q" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products">
+      <input type="hidden" name="type" value="product">
+      <button class="btn" type="submit">Search</button>
+    </form>
+  </div>
+  {%- if search.performed -%}
+    {%- paginate search.results by 12 -%}
+      {%- if search.results.size == 0 -%}<p class="empty">No results for “{{ search.terms }}”.</p>{%- else -%}
+        <div class="grid">{%- for item in search.results -%}{%- if item.object_type == 'product' -%}{% render 'product-card', product: item %}{%- endif -%}{%- endfor -%}</div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+</div>
+<div style="height:3rem"></div>
+{% schema %}{ "name": "Search" }{% endschema %}

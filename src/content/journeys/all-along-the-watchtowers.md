@@ -1,5 +1,6 @@
 ---
 title: All Along The Watchtowers
+shortName: Watchtowers
 description: Five loops around Tilburg past five lookout towers, on gravel and on the road. Pick a long day or a shorter loop.
 destination: tilburg
 days: 1 day per route
@@ -18,6 +19,7 @@ loops:
     name: Gravel, long
     activity: gravel
     gpx: watchtowers-gravel-long
+    stationKm: 2
     level: 3
     surface: Gravel [CHECK share of paved]
     summary: The long gravel version. Its closest point is about 2 km from Tilburg Centraal.
@@ -26,6 +28,7 @@ loops:
     name: Gravel, north loop
     activity: gravel
     gpx: watchtowers-gravel-north
+    stationKm: 2
     level: 2
     surface: Gravel [CHECK share of paved]
     summary: The shorter gravel loop in the north. Its closest point is about 2 km from Tilburg Centraal.
@@ -34,6 +37,7 @@ loops:
     name: Gravel, south loop
     activity: gravel
     gpx: watchtowers-gravel-south
+    stationKm: 5
     level: 2
     surface: Gravel [CHECK share of paved]
     summary: The shortest gravel loop, in the south. Its closest point is about 5 km from Tilburg Centraal.
@@ -42,6 +46,7 @@ loops:
     name: Road, long
     activity: road
     gpx: watchtowers-road-long
+    stationKm: 0.2
     level: 3
     surface: Paved
     summary: The long road version. It passes about 200 m from Tilburg Centraal and goes past the Kempentoren.
@@ -50,6 +55,7 @@ loops:
     name: Road, short
     activity: road
     gpx: watchtowers-road-short
+    stationKm: 0.2
     level: 2
     surface: Paved
     summary: The shorter road version. It passes about 200 m from Tilburg Centraal and goes past the Kempentoren.

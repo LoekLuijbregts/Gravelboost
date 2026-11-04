@@ -1,0 +1,32 @@
+<section class="about">
+  {% render 'pic', image: section.settings.image, asset: 'about-loek.webp', alt: section.settings.alt, sizes: '(min-width: 800px) 50vw, 100vw' %}
+  <div class="about-copy">
+    <p class="eyebrow eyebrow--light">{{ section.settings.eyebrow }}</p>
+    <h2>{{ section.settings.heading }}</h2>
+    <ul class="big-nums">
+      <li><strong>{{ section.settings.num_a }}</strong> {{ section.settings.label_a }}</li>
+      <li><strong>{{ section.settings.num_b }}</strong> {{ section.settings.label_b }}</li>
+    </ul>
+    <p>{{ section.settings.text }}</p>
+    {% if section.settings.link != blank %}<a class="link-go link-go--light" href="{{ section.settings.link }}">{{ section.settings.link_label }}</a>{% endif %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "About",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "alt", "label": "Image description", "default": "Loek Luijbregts in cycling kit and helmet, taking a selfie with a camera around his neck and his bike in front of him." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Who rides first" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Loek Luijbregts" },
+    { "type": "text", "id": "num_a", "label": "Number A", "default": "30+" },
+    { "type": "text", "id": "label_a", "label": "Label A", "default": "gravel regions ridden" },
+    { "type": "text", "id": "num_b", "label": "Number B", "default": "110M+" },
+    { "type": "text", "id": "label_b", "label": "Label B", "default": "earned impressions" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Rider, route maker and cycling tourism strategist. I choose where to ride first. A region can pay for a trip after that. It can never buy a place on this site." },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Want us in your region?" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "presets": [{ "name": "About" }]
+}
+{% endschema %}

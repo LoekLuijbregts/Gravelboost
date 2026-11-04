@@ -1,0 +1,12 @@
+{%- liquid
+  assign h = product.handle | downcase
+  assign f = 'product-pack.webp'
+  if h contains 'adventure' or h contains 'expedition'
+    assign f = 'product-expedition.webp'
+  elsif h contains 'reels' or h contains 'manychat' or h contains 'werkboek'
+    assign f = 'product-reels.webp'
+  elsif h contains 'luxembourg' or h contains 'guides'
+    assign f = 'product-guide.webp'
+  endif
+  echo f
+-%}

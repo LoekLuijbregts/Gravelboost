@@ -1,0 +1,11 @@
+{%- capture fb -%}{% render 'fallback-asset', product: product %}{%- endcapture -%}
+{%- assign fb = fb | strip -%}
+<a class="card" href="{{ product.url }}">
+  <div class="card-media">{% render 'pic', image: product.featured_image, asset: fb, alt: product.title, sizes: '(min-width: 900px) 30vw, 100vw' %}</div>
+  <div class="card-body">
+    {% if product.type != blank %}<span class="kind">{{ product.type }}</span>{% endif %}
+    <h3>{{ product.title }}</h3>
+    <span class="price">{% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s>{% endif %}{% if product.price_varies %}From {% endif %}{{ product.price | money }}</span>
+    {% unless product.available %}<span class="badge">Sold out</span>{% endunless %}
+  </div>
+</a>

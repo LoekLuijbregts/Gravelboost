@@ -1,0 +1,24 @@
+<section class="hero">
+  {% render 'pic', image: section.settings.image, asset: 'hero-iceland.webp', alt: section.settings.alt, eager: 'eager', sizes: '100vw' %}
+  <div class="hero-copy"><div class="wrap">
+    <h1>{{ section.settings.heading }}</h1>
+    <p class="lede">{{ section.settings.text }}</p>
+    {% if section.settings.cta_label != blank %}<a class="btn" href="{{ section.settings.cta_link | default: '#shop' }}">{{ section.settings.cta_label }} <span aria-hidden="true">↓</span></a>{% endif %}
+  </div></div>
+  {% if section.settings.credit != blank %}<span class="credit">{{ section.settings.credit }}</span>{% endif %}
+</section>
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image (defaults to the bundled Iceland photo)" },
+    { "type": "text", "id": "alt", "label": "Image description", "default": "A drone view of two riders crossing an orange plain with coloured mountains behind them in the Icelandic highlands." },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Accessible adventures across Europe" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Adventure does not have to be extreme. Every route is ridden first, and we tell you what to expect." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Find a ride" },
+    { "type": "url", "id": "cta_link", "label": "Button link" },
+    { "type": "text", "id": "credit", "label": "Photo credit", "default": "Photo: Loek Luijbregts" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

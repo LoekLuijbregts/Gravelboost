@@ -1,0 +1,21 @@
+---
+import { WORLD } from '../data/world';
+import Photo from './Photo.astro';
+---
+<section class="section" aria-labelledby="world-h">
+  <div class="wrap">
+    <h2 id="world-h">Ridden, no guide yet</h2>
+    <p class="lead">We have been here. Tell us which guide you want next.</p>
+    <div class="tiles">
+      {WORLD.map((w) => (
+        <a class="tile" href={`/request-a-route/?place=${encodeURIComponent(w.place)}`}>
+          <div class="tile-img"><Photo set="world" photo={{ file: w.file, alt: w.alt, credit: w.credit }} ratio="card" caption={false} sizes="(min-width: 1100px) 400px, (min-width: 700px) 50vw, 100vw" /></div>
+          <h3>{w.place}</h3>
+          <p class="tile-train">{w.note}</p>
+          <p class="tile-credit">{w.credit}</p>
+          <p class="tile-more">I want this guide</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
