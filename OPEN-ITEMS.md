@@ -34,7 +34,6 @@ Nothing open.
 
 ## /destinations/luxembourg/
 
-- [CHECK photographer] Destination guide Luxembourg Luxembourg is small, which makes it easy. In a week you can ride forest gravel in the Arde
 - JFMAMJJASOND [CHECK best months for each region]
 - Luxembourg City is the hub. From there trains and buses reach every region. Public transport in Luxembourg is free (second class on trains).
 - 2021 and 2022 [CHECK years: the drive shows trips in 2021]
@@ -49,17 +48,16 @@ Nothing open.
 - [PLACEHOLDER] Why it is worth it.
 - [PLACEHOLDER] Place to stay
 - [PLACEHOLDER] Bike storage, breakfast, what we liked.
-- A castle on the ridge. [CHECK castle name] [CHECK photographer]
-- Parked at the military museum in Diekirch. [CHECK photographer]
-- A stone bridge over the river. [CHECK location] [CHECK photographer]
-- Village lane in the north. [CHECK village] [CHECK photographer]
-- A winding forest track. [CHECK exact place] [CHECK photographer]
-- November on a dirt track near Mersch. [CHECK exact place] by Loek Luijbregts
-- Open fields in the middle of the country. [CHECK exact place] by Loek Luijbregts
-- A group on an autumn hollow way. [CHECK exact place] by Loek Luijbregts
+- A castle on the ridge. [CHECK castle name] by Loek Luijbregts and Nol van Loon
+- A stone bridge over the river. [CHECK location] by Loek Luijbregts
+- Village lane in the north. [CHECK village] by Loek Luijbregts and Nol van Loon
+- A winding forest track. [CHECK exact place] by Loek Luijbregts and Nol van Loon
+- November on a dirt track near Mersch. [CHECK exact place] by Loek Luijbregts and Nol van Loon
+- Open fields in the middle of the country. [CHECK exact place] by Loek Luijbregts and Nol van Loon
+- A group on an autumn hollow way. [CHECK exact place] by Loek Luijbregts and Nol van Loon
 - Red earth in the south. [CHECK place name] by Loek Luijbregts
-- A view over the south. [CHECK place name] by Loek Luijbregts
-- Through an old railway arch in the south. [CHECK place name] by Loek Luijbregts
+- A view over the south. [CHECK place name] by Loek Luijbregts and Nol van Loon
+- Through an old railway arch in the south. [CHECK place name] by Loek Luijbregts and Nol van Loon
 - Three trips with GPX [PLACEHOLDER]
 - Places to eat and sleep [PLACEHOLDER]
 - Buy [PLACEHOLDER Shopify link]

@@ -51,49 +51,49 @@ offTheBike:
     why: '[PLACEHOLDER] Bike storage, breakfast, what we liked.'
 photoSet: luxembourg
 photos:
-  - file: luxembourg-ardennes-gravel-rider-by-check.webp
+  - file: luxembourg-ardennes-gravel-rider-by-loek-luijbregts-and-nol-van-loon.webp
     alt: 'A rider with a loaded bike on a gravel track through spruce forest in the Ardennes.'
-    credit: '[CHECK photographer]'
+    credit: 'by Loek Luijbregts and Nol van Loon'
     caption: 'Gravel above the valley. [CHECK exact place]'
     focus: center
-  - file: luxembourg-castle-wheel-by-check.webp
+  - file: luxembourg-castle-wheel-by-loek-luijbregts-and-nol-van-loon.webp
     alt: 'A front wheel in the foreground with a castle on a ridge behind in the north of Luxembourg.'
-    credit: '[CHECK photographer]'
+    credit: 'by Loek Luijbregts and Nol van Loon'
     caption: 'A castle on the ridge. [CHECK castle name]'
     focus: center
-  - file: luxembourg-diekirch-military-museum-by-check.webp
+  - file: luxembourg-diekirch-military-museum-by-loek-luijbregts-and-nol-van-loon.webp
     alt: 'A bike parked in front of the National Museum of Military History, with a tank in the foreground, in Diekirch.'
-    credit: '[CHECK photographer]'
+    credit: 'by Loek Luijbregts and Nol van Loon'
     caption: 'Parked at the military museum in Diekirch.'
     focus: center
-  - file: luxembourg-river-viaduct-drone-by-check.webp
+  - file: luxembourg-river-viaduct-drone-by-loek-luijbregts.webp
     alt: 'A drone view of a stone bridge over a river with a rider crossing it.'
-    credit: '[CHECK photographer]'
+    credit: 'by Loek Luijbregts'
     caption: 'A stone bridge over the river. [CHECK location]'
     focus: center
-  - file: luxembourg-village-church-rider-by-check.webp
+  - file: luxembourg-village-church-rider-by-loek-luijbregts-and-nol-van-loon.webp
     alt: 'A rider on a wet cobbled lane in front of a white church in a village in northern Luxembourg.'
-    credit: '[CHECK photographer]'
+    credit: 'by Loek Luijbregts and Nol van Loon'
     caption: 'Village lane in the north. [CHECK village]'
     focus: center
-  - file: luxembourg-forest-gravel-curve-by-check.webp
+  - file: luxembourg-forest-gravel-curve-by-loek-luijbregts-and-nol-van-loon.webp
     alt: 'A rider on a winding gravel track through a spruce forest.'
-    credit: '[CHECK photographer]'
+    credit: 'by Loek Luijbregts and Nol van Loon'
     caption: 'A winding forest track. [CHECK exact place]'
     focus: center
-  - file: luxembourg-yellow-jacket-dirt-track-by-loek-luijbregts.webp
+  - file: luxembourg-yellow-jacket-dirt-track-by-loek-luijbregts-and-nol-van-loon.webp
     alt: 'A rider in a yellow jacket on a brown dirt track between fields in November.'
-    credit: 'by Loek Luijbregts'
+    credit: 'by Loek Luijbregts and Nol van Loon'
     caption: 'November on a dirt track near Mersch. [CHECK exact place]'
     focus: center
-  - file: luxembourg-yellow-rider-fields-by-loek-luijbregts.webp
+  - file: luxembourg-yellow-rider-fields-by-loek-luijbregts-and-nol-van-loon.webp
     alt: 'A rider in a yellow jacket on a dirt track, with a green field beside it.'
-    credit: 'by Loek Luijbregts'
+    credit: 'by Loek Luijbregts and Nol van Loon'
     caption: 'Open fields in the middle of the country. [CHECK exact place]'
     focus: center
-  - file: luxembourg-autumn-hollow-way-group-by-loek-luijbregts.webp
+  - file: luxembourg-autumn-hollow-way-group-by-loek-luijbregts-and-nol-van-loon.webp
     alt: 'A group of riders climbs a sunken leafy track in warm autumn light.'
-    credit: 'by Loek Luijbregts'
+    credit: 'by Loek Luijbregts and Nol van Loon'
     caption: 'A group on an autumn hollow way. [CHECK exact place]'
     focus: center
   - file: luxembourg-red-earth-path-drone-by-loek-luijbregts.webp
@@ -101,14 +101,14 @@ photos:
     credit: 'by Loek Luijbregts'
     caption: 'Red earth in the south. [CHECK place name]'
     focus: center
-  - file: luxembourg-minett-ledge-rider-by-loek-luijbregts.webp
+  - file: luxembourg-minett-ledge-rider-by-loek-luijbregts-and-nol-van-loon.webp
     alt: 'A rider on a rock ledge with the skyline of an industrial city in the distance, in the south of Luxembourg.'
-    credit: 'by Loek Luijbregts'
+    credit: 'by Loek Luijbregts and Nol van Loon'
     caption: 'A view over the south. [CHECK place name]'
     focus: center
-  - file: luxembourg-brick-arch-tunnel-rider-by-loek-luijbregts.webp
+  - file: luxembourg-brick-arch-tunnel-rider-by-loek-luijbregts-and-nol-van-loon.webp
     alt: 'A rider seen through a brick railway arch, with green on the other side.'
-    credit: 'by Loek Luijbregts'
+    credit: 'by Loek Luijbregts and Nol van Loon'
     caption: 'Through an old railway arch in the south. [CHECK place name]'
     focus: center
 visited: '2021 and 2022 [CHECK years: the drive shows trips in 2021]'
