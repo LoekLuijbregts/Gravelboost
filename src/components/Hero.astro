@@ -4,16 +4,25 @@ import { sources } from '../lib/photos';
 interface Props {
   set: string;
   photo: { file: string; alt: string; credit: string; focus?: string };
+  size?: 'full' | 'page' | 'short';
+  video?: string;
 }
-const { set, photo } = Astro.props;
+const { set, photo, size = 'page', video } = Astro.props;
 const wide = await sources(set, photo.file, 'hero', photo.focus ?? 'center');
 const tall = await sources(set, photo.file, 'portrait', photo.focus ?? 'center');
+const pos = { top: 'center top', bottom: 'center bottom', left: 'left center', right: 'right center', center: 'center' }[photo.focus ?? 'center'];
 ---
-<div class="hero">
+<div class={`hero hero--${size}`}>
   <picture>
     <source media="(max-width: 640px)" srcset={tall.srcset} sizes="100vw" />
-    <img src={wide.src} srcset={wide.srcset} sizes="100vw" width={wide.width} height={wide.height} alt={photo.alt} fetchpriority="high" decoding="sync" />
+    <img src={wide.src} srcset={wide.srcset} sizes="100vw" width={wide.width} height={wide.height} alt={photo.alt} fetchpriority="high" decoding="sync" style={`object-position:${pos}`} />
   </picture>
+  {video && (
+    <>
+      <video data-hero-video={`/video/${video}.mp4`} data-hero-video-sm={`/video/${video}-sm.mp4`} muted loop playsinline preload="none" aria-hidden="true"></video>
+      <button class="video-toggle" type="button" data-video-toggle data-label-play="Play video" data-label-pause="Pause video" hidden>Pause video</button>
+    </>
+  )}
   <span class="credit">{photo.credit}</span>
   <div class="hero-copy"><div class="wrap"><slot /></div></div>
 </div>

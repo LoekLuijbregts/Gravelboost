@@ -1,7 +1,7 @@
 ---
 import { ENV } from '../lib/site';
 ---
-<form class="inline-form" data-form="newsletter" data-portal={ENV.hubspotPortal} data-form-id={ENV.newsletterForm} data-msg-ok="Thanks. Check your inbox soon." data-msg-error="Something went wrong. Please try again." data-msg-sending="Sending..." data-msg-not-connected="[PLACEHOLDER] The newsletter form is not connected to HubSpot yet." novalidate={false}>
+<form class="inline-form" data-form="newsletter" data-portal={ENV.hubspotPortal} data-form-id={ENV.newsletterForm} data-msg-ok="Thanks. Check your inbox soon." data-msg-error="Something went wrong. Please try again." data-msg-sending="Sending..." data-msg-not-connected="Sign-up is not open yet. Write to loek@cyclingincubators.com and we will add you." novalidate={false}>
   <label class="sr" for="nl-email" style="position:absolute;left:-999px">Email address</label>
   <input id="nl-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" />
   <button class="btn" type="submit">Subscribe</button>

@@ -23,9 +23,10 @@ interface Props {
   view?: 'journey' | 'destination';
   viewName?: string;
   home?: boolean;
+  plain?: boolean;
   preload?: { srcset: string; media: string; sizes?: string }[];
 }
-const { title, description, path, crumbs = [], noindex = false, image, jsonLd = [], view, viewName, home = false, preload = [] } = Astro.props;
+const { title, description, path, crumbs = [], noindex = false, image, jsonLd = [], view, viewName, home = false, plain = false, preload = [] } = Astro.props;
 const fullTitle = home ? `${NAME}: ${TAGLINE}` : `${title} | ${NAME}`;
 const robots = noindex || !ENV.allowIndex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large';
 const ogImage = image ? abs(`/.netlify/images?url=${encodeURIComponent(image)}&w=1200&h=630&fit=cover&fm=jpg&q=80`) : undefined;
@@ -62,12 +63,18 @@ const nav = [
   </head>
   <body data-ga={ENV.ga4} data-view={view} data-view-name={viewName}>
     <a class="skip" href="#main">Skip to content</a>
-    <header class="site-header">
+    <header class:list={['site-header', { 'site-header--plain': plain }]}>
       <div class="wrap bar">
         <a class="brand" href="/" translate="no">Gravel<span>Boost</span></a>
-        <nav aria-label="Main">
+        <nav class="nav-desktop" aria-label="Main">
           {nav.map((n) => <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>)}
         </nav>
+        <details class="menu">
+          <summary aria-label="Menu">Menu</summary>
+          <nav aria-label="Main, mobile">
+            {nav.map((n) => <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>)}
+          </nav>
+        </details>
         <details class="lang" data-lang-menu>
           <summary aria-label="Language">EN</summary>
           <ul>
@@ -79,42 +86,30 @@ const nav = [
       </div>
     </header>
     <main id="main">
-      {trail.length > 1 && (
-        <nav class="wrap crumbs" aria-label="Breadcrumb">
-          <ol>
-            {trail.map((t, i) => (
-              <li>{i < trail.length - 1 ? <a href={t.href}>{t.name}</a> : <span aria-current="page">{t.name}</span>}</li>
-            ))}
-          </ol>
-        </nav>
-      )}
       <slot />
     </main>
     <footer class="site-footer">
-      <div class="wrap foot-grid">
-        <div>
-          <p class="brand" style="color:#fff" translate="no">Gravel<span>Boost</span></p>
-          <p>{TAGLINE}. Every route is ridden first.</p>
+      <div class="wrap">
+        <p class="foot-claim">Go out on gravel.<br />Come back different.</p>
+        <div class="foot-grid">
+          <div>
+            <h2>New routes by email</h2>
+            <Newsletter />
+          </div>
+          <ul class="foot-links">
+            <li><a href="/destinations/">Destinations</a></li>
+            <li><a href="/how-we-work/">How we work</a></li>
+            <li><a href="/request-a-route/">Request a route</a></li>
+            <li><a href="/privacy/">Privacy and cookies</a></li>
+            <li><button type="button" class="linklike" data-consent-open>Cookie settings</button></li>
+          </ul>
         </div>
-        <div>
-          <h2 style="font-size:1.1rem;color:#fff">Get new routes by email</h2>
-          <Newsletter />
-        </div>
-        <ul class="foot-links">
-          <li><a href="/destinations/">Destinations</a></li>
-          <li><a href="/how-we-work/">How we work</a></li>
-          <li><a href="/request-a-route/">Request a route</a></li>
-          <li><a href="/privacy/">Privacy and cookies</a></li>
-          <li><button type="button" class="linklike" data-consent-open>Cookie settings</button></li>
-        </ul>
-      </div>
-      <div class="wrap foot-small">
-        <p>GravelBoost is a project of Cycling Incubators.</p>
+        <p class="foot-small"><span translate="no">GravelBoost</span> is a project of Cycling Incubators. {TAGLINE}.</p>
       </div>
     </footer>
     <div id="consent" class="consent" role="dialog" aria-labelledby="consent-title" hidden>
       <div class="wrap inner">
-        <p id="consent-title">We use analytics cookies to see which pages help riders. They stay off unless you say yes. <a href="/privacy/">Read the privacy policy</a></p>
+        <p id="consent-title">Analytics cookies stay off unless you say yes. <a href="/privacy/">Read the privacy policy</a></p>
         <div class="btn-row">
           <button type="button" class="btn" id="consent-accept">Accept</button>
           <button type="button" class="btn btn--ghost" id="consent-decline">Decline</button>

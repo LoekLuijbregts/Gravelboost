@@ -1,13 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import { heroPreload } from '../lib/photos';
+import { getEntry } from 'astro:content';
 import { ENV } from '../lib/site';
+const towers = (await getEntry('journeys', 'all-along-the-watchtowers'))!;
+const heroPhoto = towers.data.photos.find((p) => p.file.includes('watchtowers-two-riders-lookout'))!;
+const preload = await heroPreload('watchtowers', heroPhoto.file);
 ---
-<Layout title="Request a route" description="Want a route ridden in your region, or a route you wish existed? Tell us. We choose what fits and ride it first." path="/request-a-route/" crumbs={[{ name: 'Request a route', href: '/request-a-route/' }]}>
+<Layout preload={preload} title="Request a route" description="Want a route ridden in your region, or a route you wish existed? Tell us. We choose what fits and ride it first." path="/request-a-route/" crumbs={[{ name: 'Request a route', href: '/request-a-route/' }]}>
+  <Hero size="short" set="watchtowers" photo={heroPhoto}>
+    <h1>Request a route</h1>
+    <p class="lede" style="margin:0">Tell us where you want to ride.</p>
+  </Hero>
   <section class="section">
     <div class="narrow">
-      <h1>Request a route</h1>
       <p>Tell us where you would like us to ride, or which route you wish existed. We read everything. We choose what fits, and we ride it before we write about it.</p>
-      <form class="stack" data-form="request" data-portal={ENV.hubspotPortal} data-form-id={ENV.requestForm} data-msg-ok="Thanks. We got your request." data-msg-error="Something went wrong. Please try again." data-msg-sending="Sending..." data-msg-not-connected="[PLACEHOLDER] This form is not connected to HubSpot yet.">
+      <form class="stack" data-form="request" data-portal={ENV.hubspotPortal} data-form-id={ENV.requestForm} data-msg-ok="Thanks. We got your request." data-msg-error="Something went wrong. Please try again." data-msg-sending="Sending..." data-msg-not-connected="This form is not open yet. Write to loek@cyclingincubators.com with your request.">
         <div><label for="r-name">Your name</label><input id="r-name" name="firstname" autocomplete="given-name" /></div>
         <div><label for="r-email">Email</label><input id="r-email" name="email" type="email" required autocomplete="email" /></div>
         <div><label for="r-org">Region or organisation (optional)</label><input id="r-org" name="company" autocomplete="organization" /></div>

@@ -3,85 +3,107 @@ import { getEntry } from 'astro:content';
 import { heroPreload } from '../lib/photos';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import Panel from '../components/Panel.astro';
+import Rail from '../components/Rail.astro';
 import Photo from '../components/Photo.astro';
+import LevelScale from '../components/LevelScale.astro';
 import { getGpx } from '../lib/gpx';
-import { TAGLINE } from '../lib/site';
+import { MARQUEE } from '../data/world';
+import { euro, TAGLINE } from '../lib/site';
 
 const tilburg = (await getEntry('journeys', 'tilburg'))!;
 const towers = (await getEntry('journeys', 'all-along-the-watchtowers'))!;
 const lux = (await getEntry('destinations', 'luxembourg'))!;
-const heroPhoto = towers.data.photos[0];
-const g1 = getGpx(tilburg.data.loops[0].gpx);
-const g2 = getGpx(tilburg.data.loops[1].gpx);
-const tw = towers.data.loops.map((l) => getGpx(l.gpx)).filter(Boolean);
-const twMin = Math.min(...tw.map((g) => g!.distanceKm));
-const twMax = Math.max(...tw.map((g) => g!.distanceKm));
-const preload = await heroPreload(towers.data.photoSet, heroPhoto.file);
+const pack = (await getEntry('products', 'tilburg-ride-pack'))!;
+const pick = (list: { file: string; alt: string; credit: string; focus?: string }[], key: string) => list.find((p) => p.file.includes(key))!;
+const heroPhoto = { file: 'iceland-orange-plain-riders-drone-by-loek-luijbregts.webp', alt: 'A drone view of two riders crossing an orange plain with coloured mountains behind them in the Icelandic highlands.', credit: 'by Loek Luijbregts' };
+const quote = { file: 'iceland-red-crater-lake-drone-by-loek-luijbregts.webp', alt: 'A drone view of riders on a track beside a deep blue lake in a red volcanic crater in Iceland.', credit: 'by Loek Luijbregts' };
+const g1 = getGpx(tilburg.data.loops[0].gpx)!;
+const g2 = getGpx(tilburg.data.loops[1].gpx)!;
+const tw = towers.data.loops.map((l) => getGpx(l.gpx)!);
+const twMin = Math.round(Math.min(...tw.map((g) => g.distanceKm)));
+const twMax = Math.round(Math.max(...tw.map((g) => g.distanceKm)));
+const me = { file: 'loek-luijbregts-selfie-by-loek-luijbregts.webp', alt: 'Loek Luijbregts in cycling kit and helmet, taking a selfie with a camera around his neck and his bike in front of him.', credit: 'by Loek Luijbregts' };
+const preload = await heroPreload('world', heroPhoto.file);
 ---
-<Layout preload={preload} home title="Home" description="Gravel and adventure rides across Europe that do not have to be extreme. Every route is ridden first, with honest answers and a GPX." path="/" image={`/photos/${towers.data.photoSet}/${heroPhoto.file}`}>
-  <div class="hero hero--home">
-    <Hero set={towers.data.photoSet} photo={heroPhoto}>
-      <p class="eyebrow" style="color:#fff;opacity:.9">Gravel and adventure rides</p>
-      <h1>{TAGLINE}</h1>
-      <p class="lede">Adventure riding does not have to be extreme. Every route is ridden first, and we tell you what to expect.</p>
-      <div class="btn-row">
-        <a class="btn" href="/destinations/">See destinations</a>
-        <a class="btn btn--ghost" href="/start-here/">Start here</a>
-      </div>
-    </Hero>
+<Layout preload={preload} home title="Home" description="Gravel and adventure rides across Europe that do not have to be extreme. Every route is ridden first, with honest answers and a GPX." path="/" image={`/photos/world/${heroPhoto.file}`}>
+  <Hero size="full" set="world" photo={heroPhoto} video="reel">
+    <h1>{TAGLINE}</h1>
+    <p class="lede">Adventure does not have to be extreme. Every route here is ridden first, and we tell you what to expect.</p>
+    <a class="btn" href="#ride">Find a ride <span aria-hidden="true">↓</span></a>
+  </Hero>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      {[...MARQUEE, ...MARQUEE, ...MARQUEE].map((m) => <span>{m}</span>)}
+    </div>
   </div>
 
-  <section class="section" aria-labelledby="featured-h">
-    <div class="wrap">
-      <h2 id="featured-h">Ride something this month</h2>
-      <div class="grid">
-        <article class="card">
-          <Photo set={tilburg.data.photoSet} photo={tilburg.data.photos[0]} ratio="card" caption={false} />
-          <div class="card-body">
-            <p class="eyebrow" style="margin:0">Journey · Netherlands</p>
-            <h3><a href="/journeys/tilburg/">Tilburg gravel and MTB loops</a></h3>
-            <p>Two loops from the station: {g1?.distanceKm} km gravel and {g2?.distanceKm} km mountain bike. Flat, easy to reach, lots to do after.</p>
-            <div class="btn-row"><a class="btn btn--ghost" href="/journeys/tilburg/">See the journey</a></div>
-          </div>
-        </article>
-        <article class="card">
-          <Photo set={towers.data.photoSet} photo={towers.data.photos[4]} ratio="card" caption={false} />
-          <div class="card-body">
-            <p class="eyebrow" style="margin:0">Bundle · Netherlands</p>
-            <h3><a href="/bundles/all-along-the-watchtowers/">All Along The Watchtowers</a></h3>
-            <p>Five routes from Tilburg along five lookout towers, from {twMin} to {twMax} km. On gravel or on the road.</p>
-            <div class="btn-row"><a class="btn btn--ghost" href="/bundles/all-along-the-watchtowers/">See the bundle</a></div>
-          </div>
-        </article>
-        <article class="card">
-          <Photo set={lux.data.photoSet} photo={lux.data.photos[9]} ratio="card" caption={false} />
-          <div class="card-body">
-            <p class="eyebrow" style="margin:0">Destination guide · Luxembourg</p>
-            <h3><a href="/destinations/luxembourg/">Luxembourg</a></h3>
-            <p>Ardennes, Mullerthal and the red-earth south. Free public transport, so no car needed.</p>
-            <div class="btn-row"><a class="btn btn--ghost" href="/destinations/luxembourg/">Read the guide</a></div>
-          </div>
-        </article>
+  <section id="ride" aria-label="Rides you can do now">
+    <Panel
+      href="/journeys/tilburg/"
+      set={tilburg.data.photoSet}
+      photo={tilburg.data.photos[0]}
+      eyebrow="Netherlands · Arrive by train"
+      title="Tilburg"
+      text="Two loops from the station. Then a city with plenty to do when the bike is parked."
+      facts={[{ k: 'Gravel', v: `${g1.distanceKm} km` }, { k: 'Mountain bike', v: `${g2.distanceKm} km` }, { k: 'Ride Pack', v: euro(pack.data.price) }]}
+      cta="See the journey"
+    />
+    <Panel
+      href="/bundles/all-along-the-watchtowers/"
+      set={towers.data.photoSet}
+      photo={towers.data.photos[0]}
+      eyebrow="Netherlands · Gravel and road"
+      title="All Along The Watchtowers"
+      text="Five loops around Tilburg past five lookout towers."
+      facts={[{ k: 'Routes', v: '5' }, { k: 'Distance', v: `${twMin} to ${twMax} km` }]}
+      cta="See the routes"
+    />
+    <Panel
+      href="/destinations/luxembourg/"
+      set={lux.data.photoSet}
+      photo={pick(lux.data.photos, 'red-earth')}
+      eyebrow="Luxembourg · Destination guide"
+      title="Luxembourg"
+      text="Ardennes, Mullerthal and the red-earth south. Public transport is free, so no car needed."
+      cta="Read the guide"
+    />
+  </section>
+
+  <section class="statement" aria-labelledby="quote-h">
+    <Photo set="world" photo={quote} ratio="hero" caption={false} sizes="100vw" />
+    <div class="statement-copy">
+      <div class="wrap">
+        <h2 id="quote-h">Not a list of routes. A rider's honest account.</h2>
+        <p>Every guide is built from a ride that actually happened. Where to sleep, what the gravel is really like, what you need to bring. The things no travel blog tells you.</p>
       </div>
     </div>
   </section>
 
-  <section class="section" style="padding-top:0" aria-labelledby="how-h">
-    <div class="wrap" style="display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
-      <div>
-        <h2 id="how-h">Ridden first</h2>
-        <p>Everything here is ridden or walked by us before it goes online. A region can pay for a trip after we choose it. It can never buy a place on the site.</p>
-        <p><a href="/how-we-work/">How we work</a></p>
-      </div>
-      <div>
-        <h2>For riders</h2>
-        <p>Each journey has distance, climbing, surface and an adventure level in the first screen. Then honest answers to the questions riders really ask.</p>
-        <p><a href="/start-here/">Start here</a></p>
-      </div>
-      <div>
-        <h2>For regions</h2>
-        <p>Want a route ridden in your region? Tell us what you have. We choose what fits.</p>
-        <p><a href="/request-a-route/">Request a route</a></p>
+  <Rail />
+
+  <section class="section" aria-labelledby="level-h">
+    <div class="wrap">
+      <h2 id="level-h" class="display">Adventure, without the extreme.</h2>
+      <p class="lead">Every journey has a level from 1 to 5. Our routes so far sit at 2 and 3, on purpose.</p>
+      <LevelScale />
+    </div>
+  </section>
+
+  <section class="about" aria-labelledby="who-h">
+    <Photo set="about" photo={me} ratio="portrait" caption={false} sizes="(min-width: 800px) 50vw, 100vw" />
+    <div class="about-copy">
+      <p class="eyebrow eyebrow--light">Who rides first</p>
+      <h2 id="who-h">Loek Luijbregts</h2>
+      <ul class="big-nums">
+        <li><strong>30+</strong> gravel regions ridden</li>
+        <li><strong>110M+</strong> earned impressions</li>
+      </ul>
+      <p>Rider, route maker and cycling tourism strategist. I choose where to ride first. A region can pay for a trip after that. It can never buy a place on this site.</p>
+      <div class="btn-row">
+        <a class="link-go link-go--light" href="/how-we-work/">How we work</a>
+        <a class="link-go link-go--light" href="/request-a-route/">Want us in your region?</a>
       </div>
     </div>
   </section>

@@ -1,0 +1,14 @@
+[
+  { "name": "theme_info", "theme_name": "GravelBoost", "theme_version": "1.0.0", "theme_author": "Cycling Incubators", "theme_documentation_url": "https://gravelboost.com", "theme_support_url": "mailto:loek@cyclingincubators.com" },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "text", "id": "brand_a", "label": "Brand name, first part", "default": "Gravel" },
+      { "type": "text", "id": "brand_b", "label": "Brand name, accent part", "default": "Boost" },
+      { "type": "text", "id": "announcement", "label": "Announcement bar text", "default": "Digital ride packs. Instant download. Every route ridden first." },
+      { "type": "url", "id": "announcement_link", "label": "Announcement link" },
+      { "type": "text", "id": "tagline", "label": "Footer claim", "default": "Go out on gravel. Come back different." },
+      { "type": "text", "id": "footer_note", "label": "Footer note", "default": "GravelBoost is a project of Cycling Incubators." }
+    ]
+  }
+]

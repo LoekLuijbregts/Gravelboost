@@ -133,7 +133,7 @@ document.querySelectorAll<HTMLFormElement>('form[data-form]').forEach((form) => 
     };
     const { portal, formId, form: kind } = form.dataset;
     if (!portal || !formId) {
-      say(form.dataset.msgNotConnected ?? '[PLACEHOLDER] This form is not connected to HubSpot yet.');
+      say(form.dataset.msgNotConnected ?? 'This form is not open yet. Write to loek@cyclingincubators.com.');
       return;
     }
     const fields = [...new FormData(form).entries()]
@@ -164,3 +164,27 @@ document.querySelectorAll<HTMLFormElement>('form[data-form]').forEach((form) => 
     }
   });
 });
+
+function startHeroVideo() {
+  const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+  if (!video) return;
+  const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || conn?.saveData) return;
+  video.src = (innerWidth < 700 ? video.dataset.heroVideoSm : video.dataset.heroVideo) ?? '';
+  video.addEventListener('playing', () => video.classList.add('is-playing'), { once: true });
+  video.play().catch(() => {});
+  const toggle = document.querySelector<HTMLButtonElement>('[data-video-toggle]');
+  if (!toggle) return;
+  toggle.hidden = false;
+  toggle.addEventListener('click', () => {
+    if (video.paused) {
+      video.play().catch(() => {});
+      toggle.textContent = toggle.dataset.labelPause ?? 'Pause video';
+    } else {
+      video.pause();
+      toggle.textContent = toggle.dataset.labelPlay ?? 'Play video';
+    }
+  });
+}
+if (document.readyState === 'complete') startHeroVideo();
+else addEventListener('load', () => setTimeout(startHeroVideo, 300), { once: true });

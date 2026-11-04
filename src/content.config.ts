@@ -72,6 +72,7 @@ const journeys = defineCollection({
     description: z.string(),
     destination: reference('destinations'),
     days: z.string(),
+    routeNote: z.string().optional(),
     level: z.number().int().min(1).max(5),
     bestMonths: z.array(month),
     bestMonthsNote: z.string().optional(),

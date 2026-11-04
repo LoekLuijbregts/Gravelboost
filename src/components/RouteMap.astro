@@ -8,14 +8,35 @@ const lines = loops
   .map((l, i) => ({ id: l.id, name: l.name, color: COLORS[i % COLORS.length], coords: getGpx(l.gpx)?.line ?? [] }))
   .filter((l) => l.coords.length);
 const preview = loops.some((l) => getGpx(l.gpx)?.preview);
+
+const all = [...lines.flatMap((l) => l.coords), ...points.map((p) => p.coords)];
+const lons = all.map((c) => c[0]);
+const lats = all.map((c) => c[1]);
+const [minLon, maxLon, minLat, maxLat] = [Math.min(...lons), Math.max(...lons), Math.min(...lats), Math.max(...lats)];
+const k = Math.cos((((minLat + maxLat) / 2) * Math.PI) / 180);
+const W = 1000;
+const H = 560;
+const PAD = 40;
+const scale = Math.min((W - 2 * PAD) / Math.max((maxLon - minLon) * k, 1e-6), (H - 2 * PAD) / Math.max(maxLat - minLat, 1e-6));
+const ox = (W - (maxLon - minLon) * k * scale) / 2;
+const oy = (H - (maxLat - minLat) * scale) / 2;
+const X = (lon: number) => (ox + (lon - minLon) * k * scale).toFixed(1);
+const Y = (lat: number) => (H - oy - (lat - minLat) * scale).toFixed(1);
 ---
 <div class="map-box" id="map" data-map={JSON.stringify(lines)} data-points={JSON.stringify(points)} role="region" aria-label="Route map">
-  <div class="map-fallback"><span>Loading map...</span></div>
+  <div class="map-fallback">
+    <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      {lines.map((l) => <polyline points={l.coords.map((c) => `${X(c[0])},${Y(c[1])}`).join(' ')} fill="none" stroke={l.color} stroke-width="4" stroke-linejoin="round" stroke-linecap="round" />)}
+      {points.map((p) => <circle cx={X(p.coords[0])} cy={Y(p.coords[1])} r="9" fill="#C2410C" stroke="#fff" stroke-width="3" />)}
+    </svg>
+  </div>
 </div>
-<ul class="legend">
-  {lines.map((l) => <li><i style={`background:${l.color}`}></i>{l.name}</li>)}
-</ul>
-{preview && <p class="muted" style="font-size:.9rem;margin:.4rem 0 0">The map shows a simplified preview line. The full GPX is in the pack.</p>}
+{lines.length > 0 && (
+  <ul class="legend">
+    {lines.map((l) => <li><i style={`background:${l.color}`}></i>{l.name}</li>)}
+  </ul>
+)}
+{preview && <p class="muted" style="font-size:.9rem;margin:.4rem 0 0">The map shows a simplified line. The full GPX is in the pack.</p>}
 <script>
   import '../scripts/map';
 </script>

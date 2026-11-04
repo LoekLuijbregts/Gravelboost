@@ -1,26 +1,28 @@
 ---
-import { KIND_LABEL } from '../lib/site';
+import { hideOpen, KIND_LABEL } from '../lib/site';
 
 interface Item { title: string; kind: string; place: string; when: string; why: string }
 interface Props { items: Item[]; preview?: number; intro?: string; packHref?: string }
-const { items, preview = items.length, intro, packHref } = Astro.props;
+const { items, preview, intro, packHref } = Astro.props;
+const visible = items.filter((it) => !hideOpen(it.title) && !(hideOpen(it.place) && hideOpen(it.why)));
+const limit = preview ?? visible.length;
 ---
-{items.length > 0 && (
+{visible.length > 0 && (
   <section class="section" id="off-the-bike" aria-labelledby="otb-h">
     <div class="wrap">
       <h2 id="otb-h">Off the bike</h2>
       {intro && <p class="muted" style="max-width:40rem">{intro}</p>}
       <ul class="otb">
-        {items.map((it, i) => (
+        {visible.map((it, i) => (
           <li>
             <span class="kind">{KIND_LABEL[it.kind]} · {it.when === 'before' ? 'Before the ride' : 'After the ride'}</span>
             <h3>{it.title}</h3>
             <p class="meta">{it.place}</p>
-            {i < preview && <p>{it.why}</p>}
+            {i < limit && <p style="margin:0">{it.why}</p>}
           </li>
         ))}
       </ul>
-      {packHref && preview < items.length && <p style="margin-top:1rem"><a href={packHref}>The full off-the-bike day is in the pack</a></p>}
+      {packHref && limit < visible.length && <p style="margin-top:1rem"><a href={packHref}>The full off-the-bike day is in the pack</a></p>}
     </div>
   </section>
 )}
