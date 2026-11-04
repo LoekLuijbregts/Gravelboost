@@ -1,0 +1,29 @@
+---
+import { euro } from '../lib/site';
+
+interface Props {
+  product: { id: string; data: { name: string; kind: string; summary: string; contents: string[]; price: number; examplePrice: boolean; shopifyUrl: string; partnerPerks: { partner: string; perk: string }[] } };
+}
+const { data: p, id } = Astro.props.product;
+---
+<article class="product" id={`pack-${id}`}>
+  <p class="eyebrow" style="margin:0">{p.kind === 'bundle' ? 'Bundle' : 'Pack'}</p>
+  <h3>{p.name}</h3>
+  <p style="margin:0">{p.summary}</p>
+  <p class="price" style="margin:0">{euro(p.price)} {p.examplePrice && <span class="tag tag--example">Example price</span>}</p>
+  <details>
+    <summary data-event="pack_click" data-label={id}>What is inside</summary>
+    <ul>{p.contents.map((c) => <li>{c}</li>)}</ul>
+  </details>
+  {p.partnerPerks.length > 0 && (
+    <div class="perks">
+      <span class="tag tag--partner">Partner content</span>
+      <ul>{p.partnerPerks.map((x) => <li><strong>{x.partner}</strong>: {x.perk}</li>)}</ul>
+    </div>
+  )}
+  <div class="btn-row" style="margin-top:auto">
+    {p.shopifyUrl
+      ? <a class="btn" href={p.shopifyUrl} data-event="purchase_click" data-label={id}>Buy {euro(p.price)}</a>
+      : <span class="btn" aria-disabled="true">Buy [PLACEHOLDER Shopify link]</span>}
+  </div>
+</article>

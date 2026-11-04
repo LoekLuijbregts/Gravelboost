@@ -1,0 +1,88 @@
+---
+import { getEntry } from 'astro:content';
+import { heroPreload } from '../lib/photos';
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Photo from '../components/Photo.astro';
+import { getGpx } from '../lib/gpx';
+import { TAGLINE } from '../lib/site';
+
+const tilburg = (await getEntry('journeys', 'tilburg'))!;
+const towers = (await getEntry('journeys', 'all-along-the-watchtowers'))!;
+const lux = (await getEntry('destinations', 'luxembourg'))!;
+const heroPhoto = towers.data.photos[0];
+const g1 = getGpx(tilburg.data.loops[0].gpx);
+const g2 = getGpx(tilburg.data.loops[1].gpx);
+const tw = towers.data.loops.map((l) => getGpx(l.gpx)).filter(Boolean);
+const twMin = Math.min(...tw.map((g) => g!.distanceKm));
+const twMax = Math.max(...tw.map((g) => g!.distanceKm));
+const preload = await heroPreload(towers.data.photoSet, heroPhoto.file);
+---
+<Layout preload={preload} home title="Home" description="Gravel and adventure rides across Europe that do not have to be extreme. Every route is ridden first, with honest answers and a GPX." path="/" image={`/photos/${towers.data.photoSet}/${heroPhoto.file}`}>
+  <div class="hero hero--home">
+    <Hero set={towers.data.photoSet} photo={heroPhoto}>
+      <p class="eyebrow" style="color:#fff;opacity:.9">Gravel and adventure rides</p>
+      <h1>{TAGLINE}</h1>
+      <p class="lede">Adventure riding does not have to be extreme. Every route is ridden first, and we tell you what to expect.</p>
+      <div class="btn-row">
+        <a class="btn" href="/destinations/">See destinations</a>
+        <a class="btn btn--ghost" href="/start-here/">Start here</a>
+      </div>
+    </Hero>
+  </div>
+
+  <section class="section" aria-labelledby="featured-h">
+    <div class="wrap">
+      <h2 id="featured-h">Ride something this month</h2>
+      <div class="grid">
+        <article class="card">
+          <Photo set={tilburg.data.photoSet} photo={tilburg.data.photos[0]} ratio="card" caption={false} />
+          <div class="card-body">
+            <p class="eyebrow" style="margin:0">Journey · Netherlands</p>
+            <h3><a href="/journeys/tilburg/">Tilburg gravel and MTB loops</a></h3>
+            <p>Two loops from the station: {g1?.distanceKm} km gravel and {g2?.distanceKm} km mountain bike. Flat, easy to reach, lots to do after.</p>
+            <div class="btn-row"><a class="btn btn--ghost" href="/journeys/tilburg/">See the journey</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <Photo set={towers.data.photoSet} photo={towers.data.photos[4]} ratio="card" caption={false} />
+          <div class="card-body">
+            <p class="eyebrow" style="margin:0">Bundle · Netherlands</p>
+            <h3><a href="/bundles/all-along-the-watchtowers/">All Along The Watchtowers</a></h3>
+            <p>Five routes from Tilburg along five lookout towers, from {twMin} to {twMax} km. On gravel or on the road.</p>
+            <div class="btn-row"><a class="btn btn--ghost" href="/bundles/all-along-the-watchtowers/">See the bundle</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <Photo set={lux.data.photoSet} photo={lux.data.photos[9]} ratio="card" caption={false} />
+          <div class="card-body">
+            <p class="eyebrow" style="margin:0">Destination guide · Luxembourg</p>
+            <h3><a href="/destinations/luxembourg/">Luxembourg</a></h3>
+            <p>Ardennes, Mullerthal and the red-earth south. Free public transport, so no car needed.</p>
+            <div class="btn-row"><a class="btn btn--ghost" href="/destinations/luxembourg/">Read the guide</a></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0" aria-labelledby="how-h">
+    <div class="wrap" style="display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+      <div>
+        <h2 id="how-h">Ridden first</h2>
+        <p>Everything here is ridden or walked by us before it goes online. A region can pay for a trip after we choose it. It can never buy a place on the site.</p>
+        <p><a href="/how-we-work/">How we work</a></p>
+      </div>
+      <div>
+        <h2>For riders</h2>
+        <p>Each journey has distance, climbing, surface and an adventure level in the first screen. Then honest answers to the questions riders really ask.</p>
+        <p><a href="/start-here/">Start here</a></p>
+      </div>
+      <div>
+        <h2>For regions</h2>
+        <p>Want a route ridden in your region? Tell us what you have. We choose what fits.</p>
+        <p><a href="/request-a-route/">Request a route</a></p>
+      </div>
+    </div>
+  </section>
+</Layout>

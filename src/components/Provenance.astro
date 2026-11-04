@@ -1,0 +1,5 @@
+---
+interface Props { text: string; paid?: boolean }
+const { text, paid = false } = Astro.props;
+---
+<p class="provenance">{paid && <><span class="tag tag--paid">Commissioned</span>{' '}</>}{text}</p>

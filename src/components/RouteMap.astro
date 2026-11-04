@@ -1,0 +1,21 @@
+---
+import { getGpx } from '../lib/gpx';
+
+interface Props { loops?: { id: string; name: string; gpx?: string }[]; points?: { name: string; coords: [number, number] }[] }
+const { loops = [], points = [] } = Astro.props;
+const COLORS = ['#C2410C', '#2F5D3F', '#2B6C8F', '#8A5A00', '#16211B'];
+const lines = loops
+  .map((l, i) => ({ id: l.id, name: l.name, color: COLORS[i % COLORS.length], coords: getGpx(l.gpx)?.line ?? [] }))
+  .filter((l) => l.coords.length);
+const preview = loops.some((l) => getGpx(l.gpx)?.preview);
+---
+<div class="map-box" id="map" data-map={JSON.stringify(lines)} data-points={JSON.stringify(points)} role="region" aria-label="Route map">
+  <div class="map-fallback"><span>Loading map...</span></div>
+</div>
+<ul class="legend">
+  {lines.map((l) => <li><i style={`background:${l.color}`}></i>{l.name}</li>)}
+</ul>
+{preview && <p class="muted" style="font-size:.9rem;margin:.4rem 0 0">The map shows a simplified preview line. The full GPX is in the pack.</p>}
+<script>
+  import '../scripts/map';
+</script>

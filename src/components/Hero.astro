@@ -1,0 +1,19 @@
+---
+import { sources } from '../lib/photos';
+
+interface Props {
+  set: string;
+  photo: { file: string; alt: string; credit: string; focus?: string };
+}
+const { set, photo } = Astro.props;
+const wide = await sources(set, photo.file, 'hero', photo.focus ?? 'center');
+const tall = await sources(set, photo.file, 'portrait', photo.focus ?? 'center');
+---
+<div class="hero">
+  <picture>
+    <source media="(max-width: 640px)" srcset={tall.srcset} sizes="100vw" />
+    <img src={wide.src} srcset={wide.srcset} sizes="100vw" width={wide.width} height={wide.height} alt={photo.alt} fetchpriority="high" decoding="sync" />
+  </picture>
+  <span class="credit">{photo.credit}</span>
+  <div class="hero-copy"><div class="wrap"><slot /></div></div>
+</div>

@@ -1,0 +1,9 @@
+---
+import { MONTHS } from '../lib/site';
+
+interface Props { months: number[] }
+const { months } = Astro.props;
+---
+<div class="months" role="img" aria-label={`Best months: ${months.map((m) => MONTHS[m - 1]).join(', ')}`}>
+  {MONTHS.map((m, i) => <span class:list={{ on: months.includes(i + 1) }}>{m.slice(0, 1)}</span>)}
+</div>

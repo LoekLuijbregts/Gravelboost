@@ -1,0 +1,26 @@
+---
+import { getCollection, getEntries } from 'astro:content';
+import { heroPreload } from '../../lib/photos';
+import Layout from '../../layouts/Layout.astro';
+import JourneyView from '../../components/JourneyView.astro';
+import { getGpx } from '../../lib/gpx';
+import { productLd, tripLd } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const all = await getCollection('journeys');
+  return all.filter((j) => j.id !== 'all-along-the-watchtowers').map((journey) => ({ params: { slug: journey.id }, props: { journey } }));
+}
+const { journey } = Astro.props;
+const j = journey.data;
+const href = `/journeys/${journey.id}/`;
+const products = await getEntries(j.products);
+const image = `/photos/${j.photoSet}/${j.photos[0].file}`;
+const ld = [
+  tripLd({ name: j.title, description: j.description, href, image, itinerary: j.loops.map((l) => `${l.name} (${getGpx(l.gpx)?.distanceKm ?? '?'} km)`) }),
+  ...products.map((p) => productLd({ name: p.data.name, description: p.data.summary, price: p.data.price, currency: p.data.currency, examplePrice: p.data.examplePrice, href })),
+];
+const preload = await heroPreload(j.photoSet, j.photos[0].file);
+---
+<Layout preload={preload} title={j.title} description={j.description} path={href} noindex={j.noindex} image={image} jsonLd={ld} view="journey" viewName={journey.id} crumbs={[{ name: 'Destinations', href: '/destinations/' }, { name: j.title, href }]}>
+  <JourneyView journey={journey} />
+</Layout>

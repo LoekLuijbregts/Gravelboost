@@ -1,0 +1,25 @@
+---
+import { getGpx } from '../lib/gpx';
+import { ACTIVITY_LABEL } from '../lib/site';
+
+interface Props {
+  loop: { name: string; activity: string; gpx?: string; level?: number; surface: string };
+  days: string;
+  level: number;
+  heading?: boolean;
+  headingLevel?: 'h2' | 'h3';
+}
+const { loop, days, level, heading = true, headingLevel = 'h2' } = Astro.props;
+const g = getGpx(loop.gpx);
+const Tag = headingLevel;
+---
+<div class="stat-loop">
+  {heading && <Tag>{loop.name}</Tag>}
+  <ul class="stats">
+    <li><span class="k">Distance</span><span class="v">{g ? `${g.distanceKm} km` : '[PLACEHOLDER] km'}</span></li>
+    <li><span class="k">Climbing</span><span class="v">{g ? `${g.ascentM} m` : '[PLACEHOLDER] m'}</span></li>
+    <li><span class="k">Time</span><span class="v">{days}</span></li>
+    <li><span class="k">Surface</span><span class="v">{loop.surface}</span></li>
+    <li><span class="k">Adventure level</span><span class="v">{loop.level ?? level} of 5</span></li>
+  </ul>
+</div>

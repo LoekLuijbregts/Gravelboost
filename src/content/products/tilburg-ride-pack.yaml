@@ -1,0 +1,12 @@
+name: Tilburg Ride Pack
+kind: pack
+summary: Everything for a Tilburg ride weekend, in one pack.
+contents:
+  - Both loops, Tilburg Gravel Highlights and Tilburg Mountainbike Highlights, as GPX
+  - An offline guide
+  - How to arrive by train
+  - Places to eat during and after the ride
+  - The off-the-bike day in Tilburg
+price: 9
+examplePrice: false
+shopifyUrl: https://likelook-store.myshopify.com/products/tilburg-ride-pack-1

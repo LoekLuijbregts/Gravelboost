@@ -1,0 +1,30 @@
+---
+import { autoRatio, dims, sources, type Ratio } from '../lib/photos';
+
+interface Props {
+  set: string;
+  photo: { file: string; alt: string; credit: string; caption?: string; focus?: string };
+  ratio?: Ratio | 'auto';
+  sizes?: string;
+  eager?: boolean;
+  caption?: boolean;
+}
+const { set, photo, ratio = 'card', sizes = '(min-width: 900px) 33vw, 100vw', eager = false, caption = true } = Astro.props;
+const orig = await dims(set, photo.file);
+const r: Ratio = ratio === 'auto' ? autoRatio(orig.width, orig.height) : ratio;
+const s = await sources(set, photo.file, r, photo.focus ?? 'center');
+---
+<figure style="margin:0">
+  <img
+    src={s.src}
+    srcset={s.srcset}
+    sizes={sizes}
+    width={s.width}
+    height={s.height}
+    alt={photo.alt}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding={eager ? 'sync' : 'async'}
+    fetchpriority={eager ? 'high' : undefined}
+  />
+  {caption && <figcaption>{photo.caption ? `${photo.caption} ` : ''}<span>{photo.credit}</span></figcaption>}
+</figure>

@@ -1,0 +1,22 @@
+---
+import { getEntry, getEntries } from 'astro:content';
+import { heroPreload } from '../../lib/photos';
+import Layout from '../../layouts/Layout.astro';
+import JourneyView from '../../components/JourneyView.astro';
+import { getGpx } from '../../lib/gpx';
+import { productLd, tripLd } from '../../lib/schema';
+
+const journey = (await getEntry('journeys', 'all-along-the-watchtowers'))!;
+const j = journey.data;
+const href = '/bundles/all-along-the-watchtowers/';
+const products = await getEntries(j.products);
+const image = `/photos/${j.photoSet}/${j.photos[0].file}`;
+const ld = [
+  tripLd({ name: j.title, description: j.description, href, image, itinerary: j.towers.map((t) => t.name) }),
+  ...products.map((p) => productLd({ name: p.data.name, description: p.data.summary, price: p.data.price, currency: p.data.currency, examplePrice: p.data.examplePrice, href })),
+];
+const preload = await heroPreload(j.photoSet, j.photos[0].file);
+---
+<Layout preload={preload} title="All Along The Watchtowers" description={j.description} path={href} image={image} jsonLd={ld} view="journey" viewName={journey.id} crumbs={[{ name: 'Destinations', href: '/destinations/' }, { name: 'All Along The Watchtowers', href }]}>
+  <JourneyView journey={journey} />
+</Layout>
