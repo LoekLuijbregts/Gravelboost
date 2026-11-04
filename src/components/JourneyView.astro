@@ -14,8 +14,8 @@ import Provenance from './Provenance.astro';
 import { getGpx } from '../lib/gpx';
 import { ACTIVITY_LABEL } from '../lib/site';
 
-interface Props { journey: CollectionEntry<'journeys'> }
-const { journey } = Astro.props;
+interface Props { journey: CollectionEntry<'journeys'>; video?: string }
+const { journey, video } = Astro.props;
 const j = journey.data;
 const { Content } = await render(journey);
 const products = await getEntries(j.products);
@@ -33,7 +33,7 @@ const many = j.loops.length > 2;
 const packImages = j.photos.filter((p) => !j.loops.some((l) => l.cover === p.file)).slice(1);
 const finish = j.end.name !== j.start.name;
 ---
-<Hero set={j.photoSet} photo={hero}>
+<Hero set={j.photoSet} photo={hero} video={video}>
   <p class="eyebrow eyebrow--light">{destination?.data.name}{j.routeNote ? ` · ${j.routeNote}` : ''}</p>
   <h1>{j.title}</h1>
   {j.provenance.paid && <p style="margin:0"><span class="tag tag--paid">Commissioned route</span></p>}
@@ -89,40 +89,44 @@ const finish = j.end.name !== j.start.name;
   <div class="wrap">
     <h2 id="map-h">The route{j.loops.length > 1 ? 's' : ''}</h2>
     <RouteMap loops={j.loops} />
-    <div class="loops">
-      {j.loops.map((l, i) => {
-        const cover = coverFor(l.cover);
-        const g = getGpx(l.gpx);
-        const token = l.komootTourId ? komootToken(l.komootTourId) : '';
-        return (
-          <article class="loop" id={`loop-${l.id}`}>
-            {cover && <Photo set={j.photoSet} photo={cover} ratio="card" caption={false} sizes="(min-width: 900px) 360px, 100vw" />}
-            <div class="loop-body">
-              <p class="eyebrow" style="margin:0"><i class="dot" style={`background:${COLORS[i % COLORS.length]}`}></i>{ACTIVITY_LABEL[l.activity]}</p>
-              <h3>{l.name}</h3>
-              <p class="facts-line"><strong>{g?.distanceKm} km</strong> · <strong>{g?.ascentM} m</strong> climbing · level <strong>{l.level ?? j.level}</strong> of 5</p>
-              <p class="muted" style="margin:0 0 .4rem">{l.surface}</p>
-              <p style="margin:0">{l.summary}</p>
-              <Elevation gpx={l.gpx} name={l.name} color={COLORS[i % COLORS.length]} />
-              <div class="btn-row" style="margin-top:.8rem">
-                {l.freeGpxUrl
-                  ? <a class="btn btn--ghost" href={l.freeGpxUrl} rel="noopener" data-event="gpx_click" data-label={l.id}>Free GPX [LINK]</a>
-                  : <a class="btn btn--ghost" href="#packs" data-event="gpx_click" data-label={l.id}>GPX (in pack)</a>}
-                {token && (
-                  <div class="komoot" data-komoot={l.komootTourId} data-token={token} data-title={`${l.name} on Komoot`}>
-                    <button class="btn btn--ghost" type="button">Show on Komoot</button>
-                  </div>
-                )}
-              </div>
+  </div>
+  <div class="loops">
+    {j.loops.map((l, i) => {
+      const cover = coverFor(l.cover);
+      const g = getGpx(l.gpx);
+      const token = l.komootTourId ? komootToken(l.komootTourId) : '';
+      return (
+        <article class="loop" id={`loop-${l.id}`}>
+          {cover && <Photo set={j.photoSet} photo={cover} ratio="card" caption={false} sizes="(min-width: 900px) 50vw, 100vw" />}
+          <div class="loop-body">
+            <p class="eyebrow" style="margin:0"><i class="dot" style={`background:${COLORS[i % COLORS.length]}`}></i>{ACTIVITY_LABEL[l.activity]}</p>
+            <h3>{l.name}</h3>
+            <ul class="loop-nums">
+              <li><strong>{g?.distanceKm}</strong> km</li>
+              <li><strong>{g?.ascentM}</strong> m up</li>
+              <li>level <strong>{l.level ?? j.level}</strong>/5</li>
+            </ul>
+            <p class="muted" style="margin:0">{l.surface}</p>
+            <p style="margin:0">{l.summary}</p>
+            <Elevation gpx={l.gpx} name={l.name} color={COLORS[i % COLORS.length]} />
+            <div class="btn-row">
+              {l.freeGpxUrl
+                ? <a class="link-go" href={l.freeGpxUrl} rel="noopener" data-event="gpx_click" data-label={l.id}>Free GPX [LINK]</a>
+                : <a class="link-go" href="#packs" data-event="gpx_click" data-label={l.id}>GPX in the pack</a>}
+              {token && (
+                <div class="komoot" data-komoot={l.komootTourId} data-token={token} data-title={`${l.name} on Komoot`}>
+                  <button class="btn btn--ghost" type="button">Show on Komoot</button>
+                </div>
+              )}
             </div>
-          </article>
-        );
-      })}
-    </div>
+          </div>
+        </article>
+      );
+    })}
   </div>
 </section>
 
-<section class="section section--white" id="packs" aria-labelledby="packs-h">
+<section class="section section--dark" id="packs" aria-labelledby="packs-h">
   <div class="wrap">
     <h2 id="packs-h">Take it with you</h2>
     <div class="grid">{products.map((p, i) => <ProductCard product={p} image={packImages[i] ? { set: j.photoSet, photo: packImages[i] } : undefined} />)}</div>

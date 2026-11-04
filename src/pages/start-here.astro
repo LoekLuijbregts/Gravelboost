@@ -9,7 +9,7 @@ const heroPhoto = towers.data.photos.find((p) => p.file.includes('watchtowers-fo
 const preload = await heroPreload('watchtowers', heroPhoto.file);
 ---
 <Layout preload={preload} title="Start here" description="New to GravelBoost? Learn how to pick a route, what the adventure levels mean and how to read a journey page." path="/start-here/" crumbs={[{ name: 'Start here', href: '/start-here/' }]}>
-  <Hero compact set="watchtowers" photo={heroPhoto}>
+  <Hero size="short" set="watchtowers" photo={heroPhoto}>
     <h1>Start here</h1>
     <p class="lede" style="margin:0">Three steps to your first ride.</p>
   </Hero>

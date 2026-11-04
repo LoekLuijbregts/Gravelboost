@@ -5,7 +5,7 @@ interface Props { answers: Record<string, { answer: string; checked: Date | null
 const { answers } = Astro.props;
 const anyOpen = Object.values(answers).some((a) => hideOpen(a.answer));
 ---
-<section class="section section--white" id="honest-answers" aria-labelledby="honest-h">
+<section class="section" id="honest-answers" aria-labelledby="honest-h">
   <div class="wrap">
     <h2 id="honest-h">Honest answers</h2>
     <p class="muted" style="max-width:40rem">The questions riders ask before they go. Each answer shows when we last checked it.{anyOpen && <> Still open means we have not checked it yet. We would rather say so than guess. <a href="/request-a-route/">Ask us</a>.</>}</p>

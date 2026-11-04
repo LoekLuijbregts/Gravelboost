@@ -22,5 +22,5 @@ const ld = [
 const preload = await heroPreload(j.photoSet, j.photos[0].file);
 ---
 <Layout preload={preload} title={j.title} description={j.description} path={href} noindex={j.noindex} image={image} jsonLd={ld} view="journey" viewName={journey.id} crumbs={[{ name: 'Destinations', href: '/destinations/' }, { name: j.title, href }]}>
-  <JourneyView journey={journey} />
+  <JourneyView journey={journey} video={journey.id} />
 </Layout>

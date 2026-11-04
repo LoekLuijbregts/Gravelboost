@@ -4,6 +4,7 @@ import { heroPreload } from '../../lib/photos';
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
 import Months from '../../components/Months.astro';
+import Photo from '../../components/Photo.astro';
 import Gallery from '../../components/Gallery.astro';
 import OffTheBike from '../../components/OffTheBike.astro';
 import ProductCard from '../../components/ProductCard.astro';
@@ -31,12 +32,12 @@ const ld = [
 const preload = await heroPreload(d.photoSet, d.photos[0].file);
 ---
 <Layout preload={preload} title={`${d.name} guide`} description={d.description} path={href} noindex={d.noindex} image={image} jsonLd={ld} view="destination" viewName={destination.id} crumbs={[{ name: 'Destinations', href: '/destinations/' }, { name: d.name, href }]}>
-  <Hero set={d.photoSet} photo={d.photos[0]}>
-    <p class="eyebrow" style="color:#fff;opacity:.9">Destination guide</p>
+  <Hero set={d.photoSet} photo={d.photos[0]} video={destination.id}>
+    <p class="eyebrow eyebrow--light">Destination guide</p>
     <h1>{d.name}</h1>
         <div class="btn-row">
       <a class="btn" href="#trips">See the trips</a>
-      <a class="btn btn--ghost" style="color:#fff;border-color:#fff" href="#packs">About the guide</a>
+      <a class="btn btn--ghost" href="#packs">About the guide</a>
     </div>
   </Hero>
 
@@ -69,8 +70,9 @@ const preload = await heroPreload(d.photoSet, d.photos[0].file);
     <div class="wrap">
       <h2 id="trips-h">Three example trips</h2>
       <div class="grid">
-        {d.trips.map((t) => (
+        {d.trips.map((t, i) => (
           <article class="card">
+            <Photo set={d.photoSet} photo={[d.photos[3], d.photos[6], d.photos[9]][i]} ratio="card" caption={false} />
             <div class="card-body">
               <p style="margin:0">{t.access === 'preview' ? <span class="tag tag--free">Free preview</span> : <span class="tag tag--example">In the guide</span>}</p>
               <h3>{t.title}</h3>
@@ -99,7 +101,7 @@ const preload = await heroPreload(d.photoSet, d.photos[0].file);
   <OffTheBike items={d.offTheBike} />
   <Gallery set={d.photoSet} photos={d.photos} />
 
-  <section class="section section--white" id="packs" aria-labelledby="packs-h">
+  <section class="section section--dark" id="packs" aria-labelledby="packs-h">
     <div class="wrap">
       <h2 id="packs-h">The guide</h2>
       <div class="grid">{products.map((p) => <ProductCard product={p} />)}</div>

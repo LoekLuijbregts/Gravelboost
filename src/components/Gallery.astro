@@ -1,14 +1,22 @@
 ---
+import { dims } from '../lib/photos';
 import Photo from './Photo.astro';
 
 interface Props { set: string; photos: { file: string; alt: string; credit: string; caption?: string; focus?: string }[]; skip?: number }
 const { set, photos, skip = 1 } = Astro.props;
+const list = await Promise.all(photos.slice(skip).map(async (p) => ({ p, d: await dims(set, p.file) })));
 ---
-<section class="section" aria-labelledby="gallery-h">
-  <div class="wrap">
-    <h2 id="gallery-h">Photos</h2>
-    <div class="gallery">
-      {photos.slice(skip).map((p) => <Photo set={set} photo={p} ratio="auto" sizes="(min-width: 900px) 360px, (min-width: 600px) 50vw, 100vw" />)}
-    </div>
+<section class="mosaic-section" aria-labelledby="gallery-h">
+  <h2 id="gallery-h" class="wrap">Photos</h2>
+  <div class="mosaic">
+    {list.map(({ p, d }, i) => {
+      const tall = d.height > d.width;
+      const big = !tall && i % 5 === 0;
+      return (
+        <div class:list={['tile', { 'tile--tall': tall, 'tile--big': big }]}>
+          <Photo set={set} photo={p} ratio={tall ? 'portrait' : big ? 'hero' : 'card'} sizes={big ? '(min-width: 800px) 66vw, 100vw' : '(min-width: 800px) 33vw, 100vw'} />
+        </div>
+      );
+    })}
   </div>
 </section>

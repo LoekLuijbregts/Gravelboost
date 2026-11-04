@@ -26,7 +26,7 @@ const perks = SHOW_TODOS ? p.partnerPerks : p.partnerPerks.filter((x) => !isOpen
     )}
     <div class="btn-row" style="margin-top:auto;padding-top:.5rem">
       {p.shopifyUrl
-        ? <a class="btn" href={p.shopifyUrl} data-event="purchase_click" data-label={id}>Buy for {euro(p.price)}</a>
+        ? <a class="btn" href={p.shopifyUrl} data-event="purchase_click" data-label={id}>Buy for {euro(p.price)} <span aria-hidden="true">→</span></a>
         : <span class="btn" aria-disabled="true">{SHOW_TODOS ? 'Buy [PLACEHOLDER Shopify link]' : 'Coming soon'}</span>}
     </div>
     {p.shopifyUrl && <p class="muted" style="font-size:.85rem;margin:0">Digital download. Pay in our shop, then download.</p>}

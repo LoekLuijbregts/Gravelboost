@@ -9,7 +9,7 @@ const heroPhoto = towers.data.photos.find((p) => p.file.includes('watchtowers-tw
 const preload = await heroPreload('watchtowers', heroPhoto.file);
 ---
 <Layout preload={preload} title="Request a route" description="Want a route ridden in your region, or a route you wish existed? Tell us. We choose what fits and ride it first." path="/request-a-route/" crumbs={[{ name: 'Request a route', href: '/request-a-route/' }]}>
-  <Hero compact set="watchtowers" photo={heroPhoto}>
+  <Hero size="short" set="watchtowers" photo={heroPhoto}>
     <h1>Request a route</h1>
     <p class="lede" style="margin:0">Tell us where you want to ride.</p>
   </Hero>

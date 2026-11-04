@@ -8,7 +8,7 @@ const heroPhoto = towers.data.photos.find((p) => p.file.includes('watchtowers-to
 const preload = await heroPreload('watchtowers', heroPhoto.file);
 ---
 <Layout preload={preload} title="How we work" description="Everything is ridden or walked first. We choose first. A region can fund a trip, never the place on the site. Paid and partner content is always labelled." path="/how-we-work/" crumbs={[{ name: 'How we work', href: '/how-we-work/' }]}>
-  <Hero compact set="watchtowers" photo={heroPhoto}>
+  <Hero size="short" set="watchtowers" photo={heroPhoto}>
     <h1>How we work</h1>
     <p class="lede" style="margin:0">The rules are short. They do not bend.</p>
   </Hero>

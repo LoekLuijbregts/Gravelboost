@@ -1,0 +1,29 @@
+---
+import Photo from './Photo.astro';
+
+interface Props {
+  href: string;
+  set: string;
+  photo: { file: string; alt: string; credit: string; focus?: string };
+  eyebrow: string;
+  title: string;
+  text: string;
+  facts?: { k: string; v: string }[];
+  cta: string;
+}
+const { href, set, photo, eyebrow, title, text, facts = [], cta } = Astro.props;
+---
+<a class="panel" href={href}>
+  <Photo set={set} photo={photo} ratio="hero" caption={false} sizes="100vw" />
+  <div class="panel-copy">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--light">{eyebrow}</p>
+      <h2>{title}</h2>
+      <p class="panel-text">{text}</p>
+      {facts.length > 0 && (
+        <ul class="panel-facts">{facts.map((f) => <li><span>{f.k}</span><strong>{f.v}</strong></li>)}</ul>
+      )}
+      <span class="link-go link-go--light">{cta}</span>
+    </div>
+  </div>
+</a>

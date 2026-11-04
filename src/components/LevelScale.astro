@@ -1,19 +1,19 @@
 ---
 const levels = [
   { n: 1, name: 'Easy', text: 'Wide, firm paths and short days.' },
-  { n: 2, name: 'Accessible', text: 'Mostly firm gravel, a few soft parts.' },
-  { n: 3, name: 'Adventurous', text: 'Longer days, sand or rough bits.' },
+  { n: 2, name: 'Accessible', text: 'Mostly firm gravel, a few soft parts.', home: true },
+  { n: 3, name: 'Adventurous', text: 'Longer days, sand or rough bits.', home: true },
   { n: 4, name: 'Demanding', text: 'Remote or rough. You need skills and spares.' },
-  { n: 5, name: 'Extreme', text: 'Not what we are here for.' },
+  { n: 5, name: 'Extreme', text: 'Not what we are here for.', dim: true },
 ];
 ---
 <ol class="levels">
   {levels.map((l) => (
-    <li class:list={{ dim: l.n === 5 }}>
+    <li class:list={{ on: l.home, dim: l.dim }}>
       <span class="level-n">{l.n}</span>
       <strong>{l.name}</strong>
       <span>{l.text}</span>
     </li>
   ))}
 </ol>
-<p class="muted" style="font-size:.9rem;margin-top:.6rem">[CHECK this scale]</p>
+<p class="todo-line">[CHECK this scale]</p>

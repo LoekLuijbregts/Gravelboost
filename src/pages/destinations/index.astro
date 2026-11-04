@@ -3,43 +3,23 @@ import { getCollection, getEntry } from 'astro:content';
 import { heroPreload } from '../../lib/photos';
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
-import Photo from '../../components/Photo.astro';
+import Panel from '../../components/Panel.astro';
+import Rail from '../../components/Rail.astro';
 
 const destinations = await getCollection('destinations');
 const towers = (await getEntry('journeys', 'all-along-the-watchtowers'))!;
 const lux = destinations.find((d) => d.id === 'luxembourg')!;
-const heroPhoto = lux.data.photos.find((p) => p.file.includes('forest-gravel-curve'))!;
-const preload = await heroPreload(lux.data.photoSet, heroPhoto.file);
+const til = destinations.find((d) => d.id === 'tilburg')!;
+const heroPhoto = { file: 'gran-canaria-above-clouds-drone-by-loek-luijbregts.webp', alt: 'A drone view above a sea of clouds with a mountain top in the distance on Gran Canaria.', credit: 'by Loek Luijbregts' };
+const preload = await heroPreload('world', heroPhoto.file);
 ---
 <Layout preload={preload} title="Destinations" description="Where we ride: Luxembourg, Tilburg and the Watchtowers routes. Accessible adventures across Europe." path="/destinations/" crumbs={[{ name: 'Destinations', href: '/destinations/' }]}>
-  <Hero compact set={lux.data.photoSet} photo={heroPhoto}>
+  <Hero size="short" set="world" photo={heroPhoto}>
     <h1>Destinations</h1>
     <p class="lede" style="margin:0">Each one is ridden first. Pick a place, then pick a ride.</p>
   </Hero>
-  <section class="section">
-    <div class="wrap">
-      <div class="grid">
-        {destinations.map((d) => (
-          <article class="card">
-            <Photo set={d.data.photoSet} photo={d.data.photos[0]} ratio="card" caption={false} />
-            <div class="card-body">
-              <p class="eyebrow" style="margin:0">{d.data.country}</p>
-              <h3><a href={d.data.href}>{d.data.name}</a></h3>
-              <p>{d.data.description}</p>
-              <div class="btn-row"><a class="btn btn--ghost" href={d.data.href}>{d.data.guide ? 'Read the guide' : 'See the journey'}</a></div>
-            </div>
-          </article>
-        ))}
-        <article class="card">
-          <Photo set={towers.data.photoSet} photo={towers.data.photos[0]} ratio="card" caption={false} />
-          <div class="card-body">
-            <p class="eyebrow" style="margin:0">Netherlands</p>
-            <h3><a href="/bundles/all-along-the-watchtowers/">All Along The Watchtowers</a></h3>
-            <p>{towers.data.description}</p>
-            <div class="btn-row"><a class="btn btn--ghost" href="/bundles/all-along-the-watchtowers/">See the routes</a></div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
+  <Panel href={lux.data.href} set={lux.data.photoSet} photo={lux.data.photos[9]} eyebrow={lux.data.country} title={lux.data.name} text={lux.data.description} cta="Read the guide" />
+  <Panel href={til.data.href} set={til.data.photoSet} photo={til.data.photos[0]} eyebrow={til.data.country} title={til.data.name} text={til.data.description} cta="See the journey" />
+  <Panel href="/bundles/all-along-the-watchtowers/" set={towers.data.photoSet} photo={towers.data.photos[0]} eyebrow="Netherlands" title="All Along The Watchtowers" text={towers.data.description} cta="See the routes" />
+  <Rail />
 </Layout>
